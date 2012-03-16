@@ -231,3 +231,5 @@ if has("gui_macvim")
 
 end
 
+autocmd vimenter * if !argc() | NERDTree | endif
+
