@@ -44,7 +44,7 @@ syntax on
 filetype plugin indent on
 
 " Use the DESERT colorscheme by default
-colorscheme desert
+colorscheme railscasts
 
 " Use dark background
 set background=dark
@@ -205,31 +205,75 @@ set shiftround
 " Settings whe using GUI Version
 if has("gui_running")
  " Large window size
- 
+
  " The number of window columns
- set columns=100
+ set columns=145
 
  " The number of window lines
- set lines=30
- 
+ set lines=40
+
  " Some GUI Options
  set guioptions=ce
  "              ||
  "              |+- Use simple dialogs rather than pop-ups
  "              +-- Use GUI Tabs, not console style tabs
- " Default Font for GUI *** CHOOSE Another for Other OSes
- set guifont=Monaco:h12
+ set guifont=Monospaced:h12
 
  " Hide mouse cursor when typing
  set mousehide
 endif
 
+" NERDTree Configurations
+"
+" If no file is open autoload NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" Close Vim if the only last window is a NERDTree window
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" SnipMate configuration
+"
+
+
+" This seems to be the last thing to load
 if has("gui_macvim")
-  " Activate PeepOpen
+  " Configure PeepOpen
   macmenu &File.New\ Tab key=<nop>
   map <D-t> <Plug>PeepOpen
 
+  " Set Monaco Font when in Mac
+  set guifont=Monaco:h12
 end
 
-autocmd vimenter * if !argc() | NERDTree | endif
+" Keyboard Mapping Stuff
+
+" Use Cmd + N to change tabs
+" map <D-1> 1gt
+map <D-2> 2gt
+map <D-3> 3gt
+map <D-4> 4gt
+map <D-5> 5gt
+map <D-6> 6gt
+map <D-7> 7gt
+map <D-8> 8gt
+map <D-9> 9gt
+map <D-0> :tablast<CR>
+
+" Tab Navigation
+map <Tab> gt
+map <S-Tab> gT
+
+" TextMate Like indentation
+nmap <D-[> <<
+nmap <D-]> >>
+vmap <D-[> <gv
+vmap <D-]> >gv
+
+" Q and K does nothing
+map Q <Nop>
+map K <Nop>
+
+
+
+
 
