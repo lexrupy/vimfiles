@@ -248,26 +248,26 @@ end
 " Keyboard Mapping Stuff
 
 " Use Cmd + N to change tabs
-" map <D-1> 1gt
-map <D-2> 2gt
-map <D-3> 3gt
-map <D-4> 4gt
-map <D-5> 5gt
-map <D-6> 6gt
-map <D-7> 7gt
-map <D-8> 8gt
-map <D-9> 9gt
-map <D-0> :tablast<CR>
+map <C-1> 1gt
+map <C-2> 2gt
+map <C-3> 3gt
+map <C-4> 4gt
+map <C-5> 5gt
+map <C-6> 6gt
+map <C-7> 7gt
+map <C-8> 8gt
+map <C-9> 9gt
+map <C-0> :tablast<CR>
 
 " Tab Navigation
 map <Tab> gt
 map <S-Tab> gT
 
 " TextMate Like indentation
-nmap <D-[> <<
-nmap <D-]> >>
-vmap <D-[> <gv
-vmap <D-]> >gv
+nmap <C-[> <<
+nmap <C-]> >>
+vmap <C-[> <gv
+vmap <C-]> >gv
 
 " Q and K does nothing
 map Q <Nop>
