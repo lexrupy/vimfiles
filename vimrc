@@ -150,6 +150,9 @@ set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,\
 " Turn on wild mode huge list
 set wildmode=list:longest
 
+" Use tab to access wildmenu
+set wildchar=<Tab>
+
 " Command line history
 " Open cmdline with ESC
 set cedit=<esc>
@@ -229,7 +232,7 @@ endif
 autocmd vimenter * if !argc() | NERDTree | endif
 
 " Close Vim if the only last window is a NERDTree window
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " SnipMate configuration
 "
@@ -247,7 +250,7 @@ end
 
 " Keyboard Mapping Stuff
 
-" Use Cmd + N to change tabs
+" Use Ctrl + N to change tabs
 map <C-1> 1gt
 map <C-2> 2gt
 map <C-3> 3gt
