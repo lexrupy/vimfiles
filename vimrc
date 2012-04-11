@@ -84,8 +84,13 @@ set ttyfast
 " Creates a backup of a file before save it
 set bk
 
-" Set the backup dir
-set backupdir=~/.vim/.backup,.
+" Backup and swap dir are temporary dirs, so should go there
+if has("win16") || has("win32") || has("win64")
+  " TODO: get some sane location at win platform
+else
+  set backupdir=~/.vim/backupdir//
+  set directory=~/.vim/swapdir//
+endif
 
 " Always show the statusline
 set laststatus=2
@@ -157,18 +162,22 @@ set matchtime=5
 set shortmess=aOstT
 
 " Defines the wrap mode
-set wrap 
-set linebreak 
+set wrap
+set linebreak
 set nolist
 
 " Visual line break
 set showbreak===>
 
-" Show tabs and trailing spaces
-set list
+" Wrap doesn't work with listchars
+" so, for now disable it.
+" set nowrap
 
-" A tab = >- and a trailing space = -
-set listchars=tab:+>,trail:•
+" Show tabs and trailing spaces
+" set list
+
+" A tab = >- and a trailing space = .
+" set listchars=tab:>-,trail:.
 
 "try to make possible to navigate within lines of wrapped lines
 nmap <Down> gj
@@ -223,8 +232,79 @@ if has("gui_running")
 
 endif
 
+" ==== FUNCTIONS ====
+
+
+" Preserve history and cursor position while executing the given command
+function! Preserve(command)
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+function! StripTrailingWhitespaces()
+  call Preserve("%s/\\s\\+$//e")
+endfunction
+
+function! StripBlankLines()
+  call Preserve("g/^$/d")
+endfunction
+
+" ==== AUTOMATIONS ====
+
+" If vim was compiled with suport for autocmd
+if has("autocmd")
+  " Strip trailing spaces from theese type of files before save
+  autocmd BufWritePre *.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
+endif
+
 " ==== PLUGIN CONFIGURATION ====
-"
+
+" Snipmate Setup
+
+source ~/.vim/snippets/support_functions.vim
+
 " CtrlP - Ignore dotfiles and dotdirs
 let g:ctrlp_dotfiles = 0
+
+" CtrlP - heigth of match window
+let g:ctrlp_max_height = 10
+
+" CtrlP - change working path mode to use the parent directory only.
+" 0: don't manage; 1: use the parent dir; 2: use the nearest .git/.svn/etc dir
+let g:ctrlp_working_path_mode = 0
+
+" Buffer Explorer Shortand
+noremap <leader>b :BufExplorer<cr>
+
+" NERDTree - Toggle
+silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
+
+
+" ==== REMAPEAMENTO DE TECLAS E MAPEAMENTO DE FUNCOES ====
+"
+" Remove trailing spaces from file
+nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
+
+" Remove blank lines from file
+nnoremap <silent> <F6> :call StripBlankLines()<CR>
+
+" ; working like : for convenience
+nnoremap ; :
+
+" Shift fixex
+cmap W w
+cmap WQ wq
+cmap wQ wq
+cmap Q q
+cmap Tabe tabe
+
+" Yank acts like Change and Delete, for consistency
+nnoremap Y y$
 
