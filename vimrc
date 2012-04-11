@@ -87,6 +87,8 @@ set bk
 " Backup and swap dir are temporary dirs, so should go there
 if has("win16") || has("win32") || has("win64")
   " TODO: get some sane location at win platform
+  set backupdir=$TEMP\\
+  set directory=$TEMP\\
 else
   set backupdir=~/.vim/backupdir//
   set directory=~/.vim/swapdir//
@@ -268,7 +270,11 @@ endif
 
 " Snipmate Setup
 
-source ~/.vim/snippets/support_functions.vim
+if has("win16") || has("win32") || has("win64")
+  source $HOME\vimfiles\snippets\support_functions.vim
+else
+  source ~/.vim/snippets/support_functions.vim
+endif
 
 " CtrlP - Ignore dotfiles and dotdirs
 let g:ctrlp_dotfiles = 0
