@@ -12,6 +12,8 @@ filetype off
 " Start patogen
 call pathogen#infect()
 
+let s:windows_os = has("win16") || has("win32") || has("win64")
+
 " On Unix-Alike use bash
 if has("unix")
   let &shell="bash"
@@ -85,8 +87,7 @@ set ttyfast
 set bk
 
 " Backup and swap dir are temporary dirs, so should go there
-if has("win16") || has("win32") || has("win64")
-  " TODO: get some sane location at win platform
+if s:windows_os
   set backupdir=$TEMP\\
   set directory=$TEMP\\
 else
@@ -270,7 +271,7 @@ endif
 
 " Snipmate Setup
 
-if has("win16") || has("win32") || has("win64")
+if s:windows_os
   source $HOME\vimfiles\snippets\support_functions.vim
 else
   source ~/.vim/snippets/support_functions.vim
