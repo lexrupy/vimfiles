@@ -82,8 +82,8 @@ set bk
 
 " Backup and swap dir are temporary dirs, so should go there
 if s:windows_os
-  set backupdir=$TEMP\\
-  set directory=$TEMP\\
+  set backupdir=$HOME\vimfiles\backupdir\\
+  set directory=$HOME\vimfiles\swapdir\\
 else
   set backupdir=~/.vim/backupdir//
   set directory=~/.vim/swapdir//
