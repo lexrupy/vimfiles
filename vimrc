@@ -32,12 +32,6 @@ syntax on
 " Enable filetype detection and make language-dependent
 filetype plugin indent on
 
-" Use the RAILSCASTS colorscheme by default
-colorscheme railscasts
-
-" Use dark background
-set background=dark
-
 " Always change dir to the dir of current file
 set autochdir
 
@@ -198,8 +192,6 @@ if has("gui_running")
   " Term 256 colors
   set t_Co=256
 
-  colorscheme railscasts
-
   " Large window size
   " The number of window columns/lines
   set columns=145
@@ -214,11 +206,16 @@ if has("gui_running")
 
   " Hide mouse cursor when typing
   set mousehide
+  
+  " Dark Background
+  set background=dark
+
+  " Default colorscheme on GUI
+  colorscheme railscasts
 
   " Gnome specific configurations
   if has("gui_gnome")
     set term=gnome-256color
-    colorscheme railscasts
     set guifont=Monospace\ Bold\ 12
   endif
 
@@ -233,6 +230,10 @@ if has("gui_running")
     set enc=utf-8
   endif
 
+else
+  if s:windows_os
+    colorscheme darkblue
+  endif
 endif
 
 " ==== FUNCTIONS ====
