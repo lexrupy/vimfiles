@@ -1,4 +1,4 @@
-" *  .vimrc
+" *  vimrc
 " * Author: Alexandre da Silva
 " *
 
