@@ -33,7 +33,7 @@ syntax on
 filetype plugin indent on
 
 " Always change dir to the dir of current file
-set autochdir
+" set autochdir
 
 " Enable autoindent
 set autoindent
