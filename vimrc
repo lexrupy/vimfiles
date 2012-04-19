@@ -215,12 +215,12 @@ if has("gui_running")
 
   " Gnome specific configurations
   if has("gui_gnome")
-    set term=gnome-256color
-    set guifont=Monospace\ Bold\ 12
+    set term=dumb
+    set guifont=Monospace\ Bold\ 11
   endif
 
   " Macos specific configurations
-  if has("gui_mac")
+  if has("gui_mac") || has("gui_macvim")  
     set guifont=Menlo:h14
   endif
 
