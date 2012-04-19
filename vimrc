@@ -194,7 +194,7 @@ if has("gui_running")
 
   " Large window size
   " The number of window columns/lines
-  set columns=145
+  set columns=110
   set lines=40
 
   " Some GUI Options
@@ -294,6 +294,8 @@ noremap <leader>b :BufExplorer<cr>
 " NERDTree - Toggle
 silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 
+" BufExplorer - Relative Path
+let g:bufExplorerShowRelativePath = 1
 
 " ==== REMAPEAMENTO DE TECLAS E MAPEAMENTO DE FUNCOES ====
 "
@@ -304,7 +306,7 @@ nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 nnoremap <silent> <F6> :call StripBlankLines()<CR>
 
 " ; working like : for convenience
-nnoremap ; :
+" nnoremap ; :
 
 " Shift fixex
 cmap W w
