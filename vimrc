@@ -206,7 +206,7 @@ if has("gui_running")
 
   " Hide mouse cursor when typing
   set mousehide
-  
+
   " Dark Background
   set background=dark
 
@@ -220,7 +220,7 @@ if has("gui_running")
   endif
 
   " Macos specific configurations
-  if has("gui_mac") || has("gui_macvim")  
+  if has("gui_mac") || has("gui_macvim")
     set guifont=Menlo:h14
   endif
 
