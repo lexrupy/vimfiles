@@ -150,7 +150,7 @@ set incsearch
 set ic scs
 
 " S-F11 to clear last search results
-nno <S-F1> <Esc>:let @/=""<CR>
+nno <C-L> <Esc>:let @/=""<CR>
 
 " Blink matching brackets for n time
 set matchtime=5
@@ -206,7 +206,7 @@ if has("gui_running")
 
   " Hide mouse cursor when typing
   set mousehide
-  
+
   " Dark Background
   set background=dark
 
@@ -220,7 +220,7 @@ if has("gui_running")
   endif
 
   " Macos specific configurations
-  if has("gui_mac") || has("gui_macvim")  
+  if has("gui_mac") || has("gui_macvim")
     set guifont=Menlo:h14
   endif
 
@@ -300,20 +300,30 @@ let g:bufExplorerShowRelativePath = 1
 " ==== REMAPEAMENTO DE TECLAS E MAPEAMENTO DE FUNCOES ====
 "
 " Remove trailing spaces from file
-nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
+silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 
 " Remove blank lines from file
-nnoremap <silent> <F6> :call StripBlankLines()<CR>
+silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
 
 " ; working like : for convenience
 " nnoremap ; :
 
-" Shift fixex
+" Shift fixes
 cmap W w
 cmap WQ wq
 cmap wQ wq
 cmap Q q
 cmap Tabe tabe
+
+" Map indent and unindent to Tab/S-Tab
+" nmap <Tab> >>
+" nmap <S-Tab> <<
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+" Ctrl+S Save at terminal
+nmap <C-s> :w<CR>
+
 
 " Yank acts like Change and Delete, for consistency
 nnoremap Y y$
