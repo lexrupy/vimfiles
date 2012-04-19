@@ -220,7 +220,7 @@ if has("gui_running")
   endif
 
   " Macos specific configurations
-  if has("gui_mac")
+  if has("gui_mac") || has("gui_macvim")  
     set guifont=Menlo:h14
   endif
 
