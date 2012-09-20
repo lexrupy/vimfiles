@@ -136,7 +136,6 @@ autocmd BufReadPost *
   \   exe "normal g`\"" |
   \ endif
 
-
 " Keep cursor at current position when scrolling
 set nostartofline
 
@@ -159,22 +158,22 @@ set matchtime=5
 set shortmess=aOstT
 
 " Defines the wrap mode
-set wrap
-set linebreak
+"set wrap
+"set linebreak
 set nolist
 
 " Visual line break
 set showbreak===>
 
 " Wrap doesn't work with listchars
-" so, for now disable it.
-" set nowrap
+
+set nowrap
 
 " Show tabs and trailing spaces
-" set list
+set list
 
 " A tab = >- and a trailing space = .
-" set listchars=tab:>-,trail:.
+set listchars=tab:▸\ ,eol:¬,trail:☠,extends:>,precedes:<
 
 "try to make possible to navigate within lines of wrapped lines
 nmap <Down> gj
@@ -207,8 +206,8 @@ if has("gui_running")
   " Hide mouse cursor when typing
   set mousehide
 
-  " Dark Background
-  set background=dark
+  " Dark Background (Already set i colorscheme)
+  "set background=dark
 
   " Default colorscheme on GUI
   colorscheme railscasts
@@ -237,7 +236,6 @@ else
 endif
 
 " ==== FUNCTIONS ====
-
 
 " Preserve history and cursor position while executing the given command
 function! Preserve(command)
@@ -323,7 +321,6 @@ vmap <S-Tab> <gv
 
 " Ctrl+S Save at terminal
 nmap <C-s> :w<CR>
-
 
 " Yank acts like Change and Delete, for consistency
 nnoremap Y y$
