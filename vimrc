@@ -232,6 +232,8 @@ if has("gui_running")
 else
   if s:windows_os
     colorscheme darkblue
+  else
+    colorscheme molokai
   endif
 endif
 
