@@ -201,7 +201,7 @@ if has("gui_running")
   "              ||
   "              |+- Use simple dialogs rather than pop-ups
   "              +-- Use GUI Tabs, not console style tabs
-  set guifont=Monospaced:h12
+  set guifont=Monospace\ 12
 
   " Hide mouse cursor when typing
   set mousehide
