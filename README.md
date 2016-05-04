@@ -9,6 +9,7 @@ Clone the repo:
 
 Get Submodules:
 `cd ~/.vim`
+
 `git submodule update --init`
 
 Make sure vim finds the vimrc file by either symlinking it:
