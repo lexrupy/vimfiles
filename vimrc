@@ -1,6 +1,8 @@
 " *  vimrc
 " * Author: Alexandre da Silva
 " *
+scriptencoding utf-8
+set encoding=utf-8
 
 "avoiding annoying CSApprox warning message
 let g:CSApprox_verbose_level = 0
@@ -179,6 +181,24 @@ set listchars=tab:▸\ ,eol:¬,trail:☠,extends:>,precedes:<
 nmap <Down> gj
 nmap <Up> gk
 set fo=l
+
+" Switch between splitted windows with Alt + Arrow
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
+
+" Duplicate current line with CTRL+D
+nmap <silent> <C-D> :t. <CR>
+
+" CTRL+UP = Move current Line UP
+" CTRL+DOWN  = Move current line DOWN
+nnoremap <C-Down> :m .+1<CR>==
+nnoremap <C-Up> :m .-2<CR>==
+inoremap <C-Down> <Esc>:m .+1<CR>==gi
+inoremap <C-Up> <Esc>:m .-2<CR>==gi
+vnoremap <C-Down> :m '>+1<CR>gv=gv
+vnoremap <C-Up> :m '<-2<CR>gv=gv
 
 " Set the right margin size for autowrap
 set wm=1
