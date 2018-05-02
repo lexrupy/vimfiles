@@ -290,7 +290,7 @@ endfunction
 " If vim was compiled with suport for autocmd
 if has("autocmd")
   " Strip trailing spaces from theese type of files before save
-  autocmd BufWritePre *.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
+  autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
 endif
 
 " ==== PLUGIN CONFIGURATION ====
