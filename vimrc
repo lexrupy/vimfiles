@@ -11,9 +11,6 @@ let g:CSApprox_verbose_level = 0
 filetype on
 filetype off
 
-" Start patogen
-call pathogen#infect()
-
 let s:windows_os = has("win16") || has("win32") || has("win64")
 
 " On Unix-Alike use bash
@@ -21,6 +18,9 @@ if has("unix")
   let &shell="bash"
   set clipboard=autoselect
 endif
+
+" Start patogen
+call pathogen#infect()
 
 " Show Line Numbers
 set number
@@ -131,7 +131,12 @@ set cedit=<esc>
 set hi=5000
 
 " Stores the cursor position and command line history
-set viminfo='100,\"1000,:40,%,n~/.viminfo
+
+if s:windows_os
+  set viminfo='100,\"1000,:40,%,n$HOME\\_viminfo
+else
+  set viminfo='100,\"1000,:40,%,n~/.viminfo
+endif
 au BufReadPost * if line("'\"")|execute("normal `\"")|endif
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -245,7 +250,7 @@ if has("gui_running")
 
   " Windows specific configurations
   if has("gui_win32") || has("gui_win32s")
-    set guifont=Consolas:h12
+    set guifont=Consolas:h16
     set enc=utf-8
   endif
 
