@@ -226,7 +226,7 @@ if has("gui_running")
   "              ||
   "              |+- Use simple dialogs rather than pop-ups
   "              +-- Use GUI Tabs, not console style tabs
-  set guifont=Monospace\ 12
+  set guifont=Monospace\ 16
 
   " Hide mouse cursor when typing
   set mousehide
@@ -235,12 +235,12 @@ if has("gui_running")
   "set background=dark
 
   " Default colorscheme on GUI
-  colorscheme railscasts
+  colorscheme monokai
 
   " Gnome specific configurations
   if has("gui_gnome")
     set term=dumb
-    set guifont=Monospace\ Bold\ 11
+    set guifont=Monospace\ Bold\ 16
   endif
 
   " Macos specific configurations
@@ -258,7 +258,7 @@ else
   if s:windows_os
     colorscheme darkblue
   else
-    colorscheme molokai
+    colorscheme monokai
   endif
 endif
 
