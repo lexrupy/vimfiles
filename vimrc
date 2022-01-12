@@ -1,5 +1,5 @@
-scriptencoding utf-8
-set encoding=utf-8
+"scriptencoding utf-8
+"set encoding=utf-8
 syntax on            " Enable syntax highlight
 set nu               " Enable line numbers
 set tabstop=4        " Show existing tab with 4 spaces width
@@ -35,6 +35,7 @@ set sm               " Show Matching Pairs
 set title
 set wildmenu
 set ic scs
+set path+=**
 filetype on          " Detect and set the filetype option and trigger the FileType Event
 filetype plugin on   " Load the plugin file for the file type, if any
 filetype indent on   " Load the indent file for the file type, if any
