@@ -112,7 +112,7 @@ map <C-l> <C-w>l
 let g:indentLine_enable = 1
 map <C-k>i :IndentLinesToggle<cr>
 
-let g:indentLine_char_list = ['|', 'Â¦', 'â”†', 'â”Š']
+let g:indentLine_char_list = ['|', '¦', '▹', '▸']
 
 
 "let g:indentLine_char = ''
