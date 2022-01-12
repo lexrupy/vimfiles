@@ -1,366 +1,120 @@
-" *  vimrc
-" * Author: Alexandre da Silva
-" *
 scriptencoding utf-8
 set encoding=utf-8
-
-"avoiding annoying CSApprox warning message
-let g:CSApprox_verbose_level = 0
-
-"necessary on some Linux distros for pathogen to properly load bundles
-filetype on
-filetype off
-
-let s:windows_os = has("win16") || has("win32") || has("win64")
-
-" On Unix-Alike use bash
-if has("unix")
-  let &shell="bash"
-  set clipboard=autoselect
-endif
-
-
-" Show Line Numbers
-set number
-
-" Show Current Mode
-set showmode
-
-" Enable Syntax Highlight
-syntax on
-
-" Enable filetype detection and make language-dependent
-filetype plugin indent on
-
-" Always change dir to the dir of current file
-" set autochdir
-
-" Enable autoindent
-set autoindent
-
-" To disable autoindent when pasging press F2
-set pastetoggle=<F2>
-
-" Show the ruller
-set ruler
-
-" Auto load modified file
-set autoread
-
-" Defines the tab size to 2 cols
-set ts=2
-
-" Convert tabs in spaces by default
-set expandtab
-
-" Number of cols to indent un-indent
-set sw=2
-
-" Show matching pairs braces
-set sm
-
-" Show the executed commands
-set showcmd
-
-" Report actions at footer
-set report=0
-
-" Define a sane backspace behavior
-set backspace=eol,start,indent
-
-" Number of tabs to go back when press backspace
-set softtabstop=2
-
-" Tell if something is wrong
-set visualbell t_vb=
-
-" Boost window redraw
-set ttyfast
-
-" Creates a backup of a file before save it
-set bk
-
-" Backup and swap dir are temporary dirs, so should go there
-if s:windows_os
-  set backupdir=$HOME\vimfiles\backupdir\\
-  set directory=$HOME\vimfiles\swapdir\\
-else
-  set backupdir=~/.vim/backupdir//
-  set directory=~/.vim/swapdir//
-endif
-
-" Always show the statusline
-set laststatus=2
-
-" Defines what goes in statusline
-"
-set statusline=%<%h%m%r%h%w%y\ ft:%{&ft}\ ff:%{&ff}\%=\ col:%04v\ lin:%04l\/%04L\ hex:%03.3B\ ascii:%03.3b\ %03P
-
-" Turn of the toolbar in gvim/mvim
-set guioptions=-T
-
-" Set Mouse usefull on terminal
-set mouse=a
-set ttymouse=xterm2
-
-" Title of window prompt is the file name
-set title
-
-" Hide buffers when not displayed
-set hidden
-
-" Turn on line completion wild style
-set wildmenu
-
-" Ignore theese list of file extensions
-set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~
-
-" Turn on wild mode huge list
-set wildmode=list:longest
-
-" Use tab to access wildmenu
-set wildchar=<Tab>
-
-" Command line history
-" Open cmdline with ESC
-set cedit=<esc>
-
-" Store this number of lines in history
-set hi=5000
-
-" Stores the cursor position and command line history
-
-if s:windows_os
-  set viminfo='100,\"1000,:40,%,n$HOME\\_viminfo
-else
-  set viminfo='100,\"1000,:40,%,n~/.viminfo
-endif
-au BufReadPost * if line("'\"")|execute("normal `\"")|endif
-autocmd BufReadPost *
-  \ if line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
-
-" Keep cursor at current position when scrolling
-set nostartofline
-
-" Highlight the search matches
+syntax on            " Enable syntax highlight
+set nu               " Enable line numbers
+set tabstop=4        " Show existing tab with 4 spaces width
+set softtabstop=4    " Show existing tab with 4 spaces width
+set shiftwidth=4     " When indenting with '>', use 4 spaces width
+set expandtab        " On pressing tab, insert 4 spaces
+set smarttab         " insert tabs on the start of a line according to shiftwidth
+set smartindent      " Automatically inserts one extra level of indentation in some cases
+set hidden           " Hides the current buffer when a new file is openned
+set incsearch        " Incremental search
 set hlsearch
-
-" Incremental search, search as you type
-set incsearch
-
-" Ignore case and Smart Case when Searching
+set ignorecase       " Ingore case in search
+set smartcase        " Consider case if there is a upper case character
+set scrolloff=8      " Minimum number of lines to keep above and below the cursor
+set colorcolumn=100  " Draws a line at the given line to keep aware of the line size
+set signcolumn=yes   " Add a column on the left. Useful for linting
+set cmdheight=2      " Give more space for displaying messages
+set updatetime=100   " Time in miliseconds to consider the changes
+set encoding=utf-8   " The encoding should be utf-8 to activate the font icons
+set nobackup         " No backup files
+set nowritebackup    " No backup files
+set splitright       " Create the vertical splits to the right
+set splitbelow       " Create the horizontal splits below
+set autoread         " Update vim after file update from outside
+set mouse=a          " Enable mouse support
+set ttymouse=xterm2
+set backspace=eol,start,indent " backspace mode
+" Clippboard Compartilhada
+set clipboard=unnamedplus 
+set autoindent
+set pastetoggle=<F2>
+set sm               " Show Matching Pairs 
+set title
+set wildmenu
 set ic scs
+filetype on          " Detect and set the filetype option and trigger the FileType Event
+filetype plugin on   " Load the plugin file for the file type, if any
+filetype indent on   " Load the indent file for the file type, if any
 
-" S-F11 to clear last search results
+set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.pdf,*.chm,*.dvi,*.svn,*~,*.pyc
+
 nno <C-L> <Esc>:let @/=""<CR>
-
-" Blink matching brackets for n time
-set matchtime=5
-
-" Shortness messages to avoid 'Press a key' prompts
-set shortmess=aOstT
-
-" Defines the wrap mode
-"set wrap
-"set linebreak
-set nolist
-
-" Visual line break
-set showbreak===>
-
-" Wrap doesn't work with listchars
-
-set nowrap
-
-" Show tabs and trailing spaces
-set list
-
-" A tab = >- and a trailing space = .
-set listchars=tab:▸\ ,eol:¬,trail:☠,extends:>,precedes:<
-
-"try to make possible to navigate within lines of wrapped lines
-nmap <Down> gj
-nmap <Up> gk
-set fo=l
-
-" Switch between splitted windows with Alt + Arrow
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-
-" Duplicate current line with CTRL+D
-nmap <silent> <C-D> :t. <CR>
-
-" CTRL+UP = Move current Line UP
-" CTRL+DOWN  = Move current line DOWN
-nnoremap <C-Down> :m .+1<CR>==
-nnoremap <C-Up> :m .-2<CR>==
-inoremap <C-Down> <Esc>:m .+1<CR>==gi
-inoremap <C-Up> <Esc>:m .-2<CR>==gi
-vnoremap <C-Down> :m '>+1<CR>gv=gv
-vnoremap <C-Up> :m '<-2<CR>gv=gv
-
-" Set the right margin size for autowrap
-set wm=1
-
-" When with 3 spaces and hit > go to 4, not 5
-set shiftround
-
-
 
 
 call plug#begin()
 
 Plug 'scrooloose/nerdtree'
-Plug 'sainnhe/sonokai'
-Plug 'morhetz/gruvbox'
-Plug 'sheerun/vim-polyglot'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kien/ctrlp.vim'
+"Plug 'morhetz/gruvbox'
+"Plug 'tomasr/molokai'
+Plug 'sainnhe/sonokai'
+Plug 'ryanoasis/vim-devicons'
+Plug 'sheerun/vim-polyglot'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'honza/vim-snippets'
+Plug 'jiangmiao/auto-pairs'
+Plug 'yggdroot/indentLine' 
 
-cal plug#end()
+call plug#end()
 
+"GUI Config ------------------------------------------------------------------
 
-set background=dark
-
-
-" Settings whe using GUI Version
-if has("gui_running")
-  " Term 256 colors
-  set t_Co=256
-
-  " Large window size
-  " The number of window columns/lines
-  set columns=110
-  set lines=40
-
-  " Some GUI Options
-  set guioptions=ce
-  "              ||
-  "              |+- Use simple dialogs rather than pop-ups
-  "              +-- Use GUI Tabs, not console style tabs
-  set guifont=Monospace\ 16
-
-  " Hide mouse cursor when typing
-  set mousehide
-
-  " Dark Background (Already set i colorscheme)
-  "set background=dark
-
-  " Default colorscheme on GUI
-  colorscheme sonokai
-
-  " Gnome specific configurations
-  if has("gui_gnome")
-    set term=dumb
-    set guifont=Monospace\ Bold\ 16
-  endif
-
-  " Macos specific configurations
-  if has("gui_mac") || has("gui_macvim")
-    set guifont=Menlo:h14
-  endif
-
-  " Windows specific configurations
-  if has("gui_win32") || has("gui_win32s")
-    set guifont=Consolas:h16
-    set enc=utf-8
-  endif
-
-else
-  if s:windows_os
-    colorscheme darkblue
-  else
-    colorscheme sonokai 
-  endif
+if has('gui_running')
+    set guioptions-=T
+    set guifont=agave\ Nerd\ Font\ Mono:h13
+    set backspace=2
+    set lines=60 columns=125 linespace=0
+   " Auto Comandos
+   " au VimEnter *  NERDTree
 endif
 
-" ==== FUNCTIONS ====
-
-" Preserve history and cursor position while executing the given command
-function! Preserve(command)
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
-
-function! StripTrailingWhitespaces()
-  call Preserve("%s/\\s\\+$//e")
-endfunction
-
-function! StripBlankLines()
-  call Preserve("g/^$/d")
-endfunction
-
-" ==== AUTOMATIONS ====
-
-" If vim was compiled with suport for autocmd
-if has("autocmd")
-  " Strip trailing spaces from theese type of files before save
-  autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
+let g:sonokai_style = 'andromeda'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 0
+let g:sonokai_diagnostic_line_highlight = 1
+let g:sonokai_current_word = 'bold'
+colorscheme sonokai
 
-
-
-
-" ==== PLUGIN CONFIGURATION ====
-
-" CtrlP - Ignore dotfiles and dotdirs
-let g:ctrlp_dotfiles = 0
-
-" CtrlP - heigth of match window
-let g:ctrlp_max_height = 10
-
-" CtrlP - change working path mode to use the parent directory only.
-" 0: don't manage; 1: use the parent dir; 2: use the nearest .git/.svn/etc dir
-let g:ctrlp_working_path_mode = 1 
-
-
-" Airline Config
+" Airline (visuais)-----------------------------------------------------------
 let g:airline_theme = 'sonokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 
+" NerdTree
 
-" ==== REMAPEAMENTO DE TECLAS E MAPEAMENTO DE FUNCOES ====
-"
-" Remove trailing spaces from file
-silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
+nmap <C-a> :NERDTreeToggle<CR>
 
-" Remove blank lines from file
-silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
+" Shortcuts for split navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
-" ; working like : for convenience
-" nnoremap ; :
+" IndentLine
 
-" Shift fixes
-cmap W w
-cmap WQ wq
-cmap wQ wq
-cmap Q q
-cmap Tabe tabe
+let g:indentLine_enable = 1
+map <C-k>i :IndentLinesToggle<cr>
 
-" Map indent and unindent to Tab/S-Tab
-" nmap <Tab> >>
-" nmap <S-Tab> <<
-vmap <Tab> >gv
-vmap <S-Tab> <gv
+let g:indentLine_char_list = ['|', 'Â¦', 'â”†', 'â”Š']
 
-" Ctrl+S Save at terminal
-nmap <C-s> :w<CR>
 
-" Yank acts like Change and Delete, for consistency
-nnoremap Y y$
+"let g:indentLine_char = ''
+" Auto Comandos
+
 
