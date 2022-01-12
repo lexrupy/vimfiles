@@ -19,8 +19,6 @@ if has("unix")
   set clipboard=autoselect
 endif
 
-" Start patogen
-call pathogen#infect()
 
 " Show Line Numbers
 set number
@@ -235,7 +233,7 @@ if has("gui_running")
   "set background=dark
 
   " Default colorscheme on GUI
-  colorscheme monokai
+  colorscheme molokai
 
   " Gnome specific configurations
   if has("gui_gnome")
@@ -294,14 +292,6 @@ if has("autocmd")
 endif
 
 " ==== PLUGIN CONFIGURATION ====
-
-" Snipmate Setup
-
-if s:windows_os
-  source $HOME\vimfiles\snippets\support_functions.vim
-else
-  source ~/.vim/snippets/support_functions.vim
-endif
 
 " CtrlP - Ignore dotfiles and dotdirs
 let g:ctrlp_dotfiles = 0
