@@ -209,6 +209,25 @@ set wm=1
 " When with 3 spaces and hit > go to 4, not 5
 set shiftround
 
+
+
+
+call plug#begin()
+
+Plug 'scrooloose/nerdtree'
+Plug 'sainnhe/sonokai'
+Plug 'morhetz/gruvbox'
+Plug 'sheerun/vim-polyglot'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'kien/ctrlp.vim'
+
+cal plug#end()
+
+
+set background=dark
+
+
 " Settings whe using GUI Version
 if has("gui_running")
   " Term 256 colors
@@ -233,7 +252,7 @@ if has("gui_running")
   "set background=dark
 
   " Default colorscheme on GUI
-  colorscheme molokai
+  colorscheme sonokai
 
   " Gnome specific configurations
   if has("gui_gnome")
@@ -256,7 +275,7 @@ else
   if s:windows_os
     colorscheme darkblue
   else
-    colorscheme monokai
+    colorscheme sonokai 
   endif
 endif
 
@@ -291,6 +310,10 @@ if has("autocmd")
   autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
 endif
 
+
+
+
+
 " ==== PLUGIN CONFIGURATION ====
 
 " CtrlP - Ignore dotfiles and dotdirs
@@ -301,16 +324,15 @@ let g:ctrlp_max_height = 10
 
 " CtrlP - change working path mode to use the parent directory only.
 " 0: don't manage; 1: use the parent dir; 2: use the nearest .git/.svn/etc dir
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 1 
 
-" Buffer Explorer Shortand
-noremap <leader>b :BufExplorer<cr>
 
-" NERDTree - Toggle
-silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
+" Airline Config
+let g:airline_theme = 'sonokai'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
-" BufExplorer - Relative Path
-let g:bufExplorerShowRelativePath = 1
+
 
 " ==== REMAPEAMENTO DE TECLAS E MAPEAMENTO DE FUNCOES ====
 "
