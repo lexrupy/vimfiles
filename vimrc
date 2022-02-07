@@ -75,8 +75,8 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=','. ghregex
 let g:netrw_hide = 1
 
-"nnoremap <leader>dd :Lexplore %:p:h<CR>
-"nnoremap <Leader>da :Lexplore<CR>
+nnoremap <leader>dd :Lexplore %:p:h<CR>
+nnoremap <Leader>da :Lexplore<CR>
 
 call plug#begin()
     Plug 'tpope/vim-surround'
@@ -180,6 +180,7 @@ endfunction
 
 silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
+
 
 " Auto Comandos
 
