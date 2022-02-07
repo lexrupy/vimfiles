@@ -31,9 +31,11 @@ set splitright       " Create the vertical splits to the right
 set splitbelow       " Create the horizontal splits below
 set autoread         " Update vim after file update from outside
 set mouse=a          " Enable mouse support
+set laststatus=2     " Always show the statusline
 set shortmess+=c
 set backspace=eol,start,indent
-set clipboard=unnamedplus " Clippboard Compartilhada
+set clipboard=unnamed " Clippboard Compartilhada
+"set paste
 set wildmenu
 set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
 set visualbell t_vb=
@@ -53,18 +55,15 @@ set backupdir=./.backup//
 set directory=./.swp//
 set wm=1 " Set the right margin size for autowrap
 set shiftround " When with 3 spaces and hit > go to 4, not 5
-let mapleader = 'ç'
-
-if has('nvim')
-    let g:python3_host_prog = '~/.venvs/nvim/bin/python3'
-else
-   set ttymouse=xterm2
-endif
-
+set ttymouse=xterm2
 let s:windows_os = has("win16") || has("win32") || has("win64")
 
+let mapleader = 'ç'
+
 command! MakeTags !ctags -R .
+
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
+
 let g:netrw_banner=0
 let g:netrw_browse_split=4
 let g:netrw_altv=1
@@ -113,6 +112,9 @@ let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
+" Defines what goes in statusline
+
+
 " Shortcuts for split navigation
 "map <C-h> <C-w>h
 "map <C-j> <C-w>j
@@ -151,7 +153,7 @@ let g:indentLine_enabled = 1
 let g:indentLine_char_list = ['|', '¦', '▹', '▸']
 let g:indentLine_leadinSpaceEnabled = 0
 let g:indentLine_leadingSpaceChar = '.'
-"let g:indentLine_char = ''
+"let g:indentLine_char = '.'
 
 " Custom Functions
 "
@@ -176,16 +178,13 @@ function! StripBlankLines()
   call Preserve("g/^$/d")
 endfunction
 
-
 silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
-
 
 " Auto Comandos
 
 " If vim was compiled with suport for autocmd
 if has("autocmd")
-  " Strip trailing spaces from theese type of files before save
   " Strip trailing spaces from theese type of files before save
   autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
 endif
@@ -201,10 +200,10 @@ if s:windows_os
         endif
     endif
 
-    set shell=powershell.exe
-    set shellcmdflag=-command
-    set shellquote=\"
-    set shellxquote=
+    "set shell=powershell.exe
+    "set shellcmdflag=-command
+    "set shellquote=\"
+    "set shellxquote=
 else
     if filewritable(".")
         if ! filewritable(".backup")
