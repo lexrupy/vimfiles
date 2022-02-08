@@ -81,9 +81,6 @@ nnoremap <Leader>da :Lexplore<CR>
 
 call plug#begin()
     Plug 'tpope/vim-surround'
-    Plug 'tomasr/molokai'
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'chriskempson/base16-vim'
     Plug 'jiangmiao/auto-pairs'
     Plug 'yggdroot/indentLine'
     Plug 'vim-airline/vim-airline'
@@ -109,6 +106,7 @@ endif
 
 " Configuracoes dos plugins --------------------------------------------------
 colorscheme gruvbox
+set background=dark
 
 " Airline (visuais)-----------------------------------------------------------
 let g:airline_theme = 'molokai'
