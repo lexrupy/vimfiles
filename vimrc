@@ -82,16 +82,11 @@ nnoremap <Leader>da :Lexplore<CR>
 call plug#begin()
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdtree'
-"    Plug 'morhetz/gruvbox'
-"    Plug 'ratazzi/blackboard.vim'
-"    Plug 'sainnhe/sonokai'
-"    Plug 'tomasr/molokai'
-"    Plug 'arcticicestudio/nord-vim'
-"    Plug 'nanotech/jellybeans.vim'
-"    Plug 'fneu/breezy'
-"    Plug 'sonph/onehalf', { 'rtp': 'vim' }
+    Plug 'morhetz/gruvbox'
+
+    Plug 'sheerun/vim-polyglot'
     Plug 'jiangmiao/auto-pairs'
-    Plug 'yggdroot/indentLine'
+"    Plug 'yggdroot/indentLine'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 call plug#end()
@@ -117,13 +112,13 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-colorscheme molokai 
-"set background=dark
+colorscheme gruvbox 
+set background=dark
 
 " Configuracoes dos plugins --------------------------------------------------
 
 " Airline (visuais)-----------------------------------------------------------
-let g:airline_theme = 'molokai'
+let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
@@ -178,11 +173,11 @@ cmap Q q
 cmap Tabe tabe
 
 " IndentLine
-let g:indentLine_enabled = 1
+"let g:indentLine_enabled = 1
 "map <C-k>i :IndentLinesToggle<cr>
-let g:indentLine_char_list = ['|', '¦', '▹', '▸']
-let g:indentLine_leadinSpaceEnabled = 0
-let g:indentLine_leadingSpaceChar = '.'
+"let g:indentLine_char_list = ['|', '¦', '▹', '▸']
+"let g:indentLine_leadinSpaceEnabled = 0
+"let g:indentLine_leadingSpaceChar = '.'
 "let g:indentLine_char = '.'
 
 " Custom Functions
