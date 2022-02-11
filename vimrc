@@ -57,6 +57,7 @@ set wm=1 " Set the right margin size for autowrap
 set shiftround " When with 3 spaces and hit > go to 4, not 5
 set ttymouse=xterm2
 set formatoptions-=t
+set showcmd
 let s:windows_os = has("win16") || has("win32") || has("win64")
 
 let mapleader = 'ç'
