@@ -118,7 +118,7 @@ colorscheme molokai
 " Configuracoes dos plugins --------------------------------------------------
 
 " Airline (visuais)-----------------------------------------------------------
-let g:airline_theme = 'powerline'
+let g:airline_theme = 'dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
