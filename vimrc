@@ -92,7 +92,11 @@ call plug#end()
 set guioptions=i
 
 if has('gui_running')
-    set guifont=agave\ Nerd\ Font\ Mono:h13
+    if s:windows_os
+        set guifont=agave\ Nerd\ Font\ Mono:h13
+    else
+        set guifont=agave\ Nerd\ Font\ Mono\ 13
+    endif
     set backspace=2
     set lines=60 columns=125 linespace=0
    " Auto Comandos
@@ -126,7 +130,6 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 
 
 " Start NERDTree when Vim starts with a directory argument.
-autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
