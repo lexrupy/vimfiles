@@ -83,7 +83,7 @@ call plug#begin()
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdtree'
     Plug 'morhetz/gruvbox'
-
+    Plug 'tomasr/molokai'
     Plug 'sheerun/vim-polyglot'
     Plug 'jiangmiao/auto-pairs'
 "    Plug 'yggdroot/indentLine'
@@ -112,13 +112,13 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-colorscheme gruvbox 
-set background=dark
+colorscheme molokai
+"set background=dark
 
 " Configuracoes dos plugins --------------------------------------------------
 
 " Airline (visuais)-----------------------------------------------------------
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'powerline'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
