@@ -82,6 +82,14 @@ nnoremap <Leader>da :Lexplore<CR>
 call plug#begin()
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdtree'
+"    Plug 'morhetz/gruvbox'
+"    Plug 'ratazzi/blackboard.vim'
+"    Plug 'sainnhe/sonokai'
+"    Plug 'tomasr/molokai'
+"    Plug 'arcticicestudio/nord-vim'
+"    Plug 'nanotech/jellybeans.vim'
+"    Plug 'fneu/breezy'
+"    Plug 'sonph/onehalf', { 'rtp': 'vim' }
     Plug 'jiangmiao/auto-pairs'
     Plug 'yggdroot/indentLine'
     Plug 'vim-airline/vim-airline'
@@ -109,9 +117,10 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
+colorscheme molokai 
+"set background=dark
+
 " Configuracoes dos plugins --------------------------------------------------
-colorscheme gruvbox
-set background=dark
 
 " Airline (visuais)-----------------------------------------------------------
 let g:airline_theme = 'molokai'
