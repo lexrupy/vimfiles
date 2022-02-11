@@ -37,7 +37,7 @@ set backspace=eol,start,indent
 set clipboard=unnamed " Clippboard Compartilhada
 "set paste
 set wildmenu
-set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
+set wildignore=tags,*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
 set visualbell t_vb=
 set ttyfast
 set pastetoggle=<F2>
