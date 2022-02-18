@@ -60,7 +60,8 @@ set formatoptions-=t
 set showcmd
 let s:windows_os = has("win16") || has("win32") || has("win64")
 
-let mapleader = 'ç'
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
 
 command! MakeTags !ctags -R .
 
@@ -81,13 +82,19 @@ nnoremap <leader>dd :Lexplore %:p:h<CR>
 nnoremap <Leader>da :Lexplore<CR>
 
 call plug#begin()
+    Plug 'tpope/vim-fugitive'
+
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdtree'
     Plug 'morhetz/gruvbox'
     Plug 'tomasr/molokai'
     Plug 'sheerun/vim-polyglot'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'scrooloose/nerdcommenter'
 "    Plug 'yggdroot/indentLine'
+    "Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 call plug#end()
@@ -140,6 +147,11 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" FZF
+"
+
+nnoremap <leader>f :Files<CR>
 
 " Shortcuts for split navigation
 "map <C-h> <C-w>h
