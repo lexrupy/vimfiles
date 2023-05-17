@@ -4,11 +4,11 @@ filetype on          " Detect and set the filetype option and trigger the FileTy
 filetype plugin on   " Load the plugin file for the file type, if any
 filetype indent on   " Load the indent file for the file type, if any
 
-"set autochdir         " Auto change dir to dir of current file
+""set autochdir         " Auto change dir to dir of current file
 set nocompatible
-set relativenumber
 set path+=**
-set nu               " Enable line numbers
+set number           " Enable line numbers
+set relativenumber   " Define numbers as relative
 set tabstop=4        " Show existing tab with 4 spaces width
 set softtabstop=4    " Show existing tab with 4 spaces width
 set shiftwidth=4     " When indenting with '>', use 4 spaces width
@@ -17,10 +17,9 @@ set smarttab         " insert tabs on the start of a line according to shiftwidt
 set smartindent      " Automatically inserts one extra level of indentation in some cases
 set hidden           " Hides the current buffer when a new file is openned
 set incsearch        " Incremental search
-set ignorecase       " Ingore case in search
-set ic scs           " SmartCase
+""set ignorecase       " Ingore case in search
 set hlsearch         " Highlight the search matches
-set smartcase        " Consider case if there is a upper case character
+""set smartcase        " Consider case if there is a upper case character
 set scrolloff=2      " Minimum number of lines to keep above and below the cursor
 set colorcolumn=100  " Draws a line at the given line to keep aware of the line size
 set signcolumn=yes   " Add a column on the left. Useful for linting
@@ -34,7 +33,7 @@ set mouse=a          " Enable mouse support
 set laststatus=2     " Always show the statusline
 set shortmess+=c
 set backspace=eol,start,indent
-set clipboard=unnamed " Clippboard Compartilhada
+set clipboard=unnamedplus " Clippboard Compartilhada
 "set paste
 set wildmenu
 set wildignore=tags,*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
@@ -86,8 +85,6 @@ call plug#begin()
 
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdtree'
-    Plug 'morhetz/gruvbox'
-    Plug 'tomasr/molokai'
     Plug 'sheerun/vim-polyglot'
     Plug 'jiangmiao/auto-pairs'
     Plug 'scrooloose/nerdcommenter'
@@ -97,6 +94,11 @@ call plug#begin()
     Plug 'junegunn/fzf.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
+    " Themes
+    Plug 'morhetz/gruvbox'
+    Plug 'tomasr/molokai'
+    Plug 'gummesson/stereokai.vim'
+    Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 "GUI Config ------------------------------------------------------------------
@@ -120,7 +122,8 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-colorscheme molokai
+colorscheme palenight
+"colorscheme molokai
 "set background=dark
 
 " Configuracoes dos plugins --------------------------------------------------
@@ -177,6 +180,8 @@ nnoremap <S-Tab> :bp<CR>
 
 "map <silent> <C-l> :nohlsearch<CR>
 nno <F4> <Esc>:let @/=""<CR>
+nmap <silent><F3> :exe'se'&nu+&rnu?'rnu!':'nu'<CR>
+imap <silent><F3> <esc> :exe'se'&nu+&rnu?'rnu!':'nu'<CR>I
 
 " Shift fixes
 cmap W w
@@ -218,6 +223,7 @@ endfunction
 
 silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
+
 
 
 " Auto Comandos
