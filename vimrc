@@ -57,6 +57,7 @@ set shiftround " When with 3 spaces and hit > go to 4, not 5
 set ttymouse=xterm2
 set formatoptions-=t
 set showcmd
+set termwinsize=10x0
 let s:windows_os = has("win16") || has("win32") || has("win64")
 
 nnoremap <SPACE> <Nop>
@@ -80,27 +81,6 @@ let g:netrw_hide = 1
 nnoremap <leader>dd :Lexplore %:p:h<CR>
 nnoremap <Leader>da :Lexplore<CR>
 
-call plug#begin()
-    Plug 'tpope/vim-fugitive'
-
-    Plug 'tpope/vim-surround'
-    Plug 'preservim/nerdtree'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'scrooloose/nerdcommenter'
-"    Plug 'yggdroot/indentLine'
-    "Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    " Themes
-    Plug 'morhetz/gruvbox'
-    Plug 'tomasr/molokai'
-    Plug 'gummesson/stereokai.vim'
-    Plug 'drewtempelmeyer/palenight.vim'
-call plug#end()
-
 "GUI Config ------------------------------------------------------------------
 set guioptions=i
 
@@ -122,39 +102,7 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-colorscheme palenight
-"colorscheme molokai
-"set background=dark
-
-" Configuracoes dos plugins --------------------------------------------------
-
-" Airline (visuais)-----------------------------------------------------------
-let g:airline_theme = 'dark'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-
-" Defines what goes in statusline
-
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTreeToggle<CR>
-
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr('') | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-
-" Start NERDTree when Vim starts with a directory argument.
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" FZF
-"
-
-nnoremap <leader>f :Files<CR>
+colorscheme molokai
 
 " Shortcuts for split navigation
 "map <C-h> <C-w>h
@@ -166,27 +114,41 @@ nnoremap <leader>f :Files<CR>
 "nmap <Up> gk
 "set fo=1
 
-nmap <silent> <leader>du :t. <CR>
-" CTRL+UP = Move current Line UP
+" Normal Mode Remaps
+" Open Fuzzy Finder
+nnoremap <leader>f :Files<CR>
 " CTRL+DOWN  = Move current line DOWN
 nnoremap <C-Down> :m .+1<CR>==
+" CTRL+UP = Move current Line UP
 nnoremap <C-Up> :m .-2<CR>==
+" Duplicate line under cursor
+nmap <silent> <leader>du :t. <CR>
+" Move current line DOWN
 inoremap <C-Down> <Esc>:m .+1<CR>==gi
-inoremap <C-Up> <Esc>:m .-2<CR>==gi
+" Move current selection DOWN
 vnoremap <C-Down> :m '>+1<CR>gv=gv
+" Move current line UP
+inoremap <C-Up> <Esc>:m .-2<CR>==gi
+" Move current selection UP
 vnoremap <C-Up> :m '<-2<CR>gv=gv
+" Cycle buffers with TAB/SHIFT-TAB
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
-
-"map <silent> <C-l> :nohlsearch<CR>
+" For convenience in abnt keyboards, remap ç to :
+nnoremap ç :
+nnoremap Ç :
+" Clear search highlights
 nno <F4> <Esc>:let @/=""<CR>
+" Toggle Relative Line Numbers NORMAL mode
 nmap <silent><F3> :exe'se'&nu+&rnu?'rnu!':'nu'<CR>
+" Toggle Relative Line Numbers INSERT mode
 imap <silent><F3> <esc> :exe'se'&nu+&rnu?'rnu!':'nu'<CR>I
 
 " Shift fixes
 cmap W w
 cmap WQ wq
 cmap wQ wq
+cmap Wq wq
 cmap Q q
 cmap Tabe tabe
 
@@ -223,7 +185,6 @@ endfunction
 
 silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
-
 
 
 " Auto Comandos
