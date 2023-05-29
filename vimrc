@@ -93,8 +93,6 @@ if has('gui_running')
     endif
     set backspace=2
     set lines=60 columns=125 linespace=0
-   " Auto Comandos
-   " au VimEnter *  NERDTree
 endif
 
 if exists('+termguicolors')
@@ -153,13 +151,6 @@ cmap Wq wq
 cmap Q q
 cmap Tabe tabe
 
-" IndentLine
-"let g:indentLine_enabled = 1
-"map <C-k>i :IndentLinesToggle<cr>
-"let g:indentLine_char_list = ['|', '¦', '▹', '▸']
-"let g:indentLine_leadinSpaceEnabled = 0
-"let g:indentLine_leadingSpaceChar = '.'
-"let g:indentLine_char = '.'
 
 " Custom Functions
 "
@@ -176,13 +167,16 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
+
 function! StripTrailingWhitespaces()
   call Preserve("%s/\\s\\+$//e")
 endfunction
 
+
 function! StripBlankLines()
   call Preserve("g/^$/d")
 endfunction
+
 
 function! QuitNetrw()
   for i in range(1, bufnr($))
@@ -193,8 +187,6 @@ function! QuitNetrw()
     endif
   endfor
 endfunction
-
-
 
 
 silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
@@ -210,6 +202,7 @@ if has("autocmd")
   autocmd FileType netrw setl bufhidden=wipe
   autocmd VimLeavePre *  call QuitNetrw()
 endif
+
 
 " Windows Stuff
 if s:windows_os
@@ -236,6 +229,4 @@ else
         endif
     endif
 endif
-
-
 
