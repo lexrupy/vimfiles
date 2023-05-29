@@ -1,4 +1,4 @@
-
+" Simple Vim Configuration
 syntax on            " Enable syntax highlight
 filetype on          " Detect and set the filetype option and trigger the FileType Event
 filetype plugin on   " Load the plugin file for the file type, if any
@@ -77,9 +77,10 @@ let g:netrw_localcopydircmd = 'cp -r'
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=','. ghregex
 let g:netrw_hide = 1
+let g:netrw_bufsettings = 'noma nomod nobl nowrap ro'
 
-nnoremap <leader>dd :Lexplore %:p:h<CR>
-nnoremap <Leader>da :Lexplore<CR>
+nnoremap <Leader>ef :Lexplore %:p:h<CR>
+nnoremap <Leader>ee :Lexplore<CR>
 
 "GUI Config ------------------------------------------------------------------
 set guioptions=i
@@ -183,6 +184,19 @@ function! StripBlankLines()
   call Preserve("g/^$/d")
 endfunction
 
+function! QuitNetrw()
+  for i in range(1, bufnr($))
+    if buflisted(i)
+      if getbufvar(i, '&filetype') == "netrw"
+        silent exe 'bwipeout ' . i
+      endif
+    endif
+  endfor
+endfunction
+
+
+
+
 silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
 
@@ -193,6 +207,8 @@ silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
 if has("autocmd")
   " Strip trailing spaces from theese type of files before save
   autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
+  autocmd FileType netrw setl bufhidden=wipe
+  autocmd VimLeavePre *  call QuitNetrw()
 endif
 
 " Windows Stuff
@@ -220,5 +236,6 @@ else
         endif
     endif
 endif
+
 
 
