@@ -116,7 +116,6 @@ endif
 
 
 
-
 " WichKey----------------------------------------------------------------------
 
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
@@ -151,22 +150,7 @@ let g:which_key_map.f.f = 'fuzzy-finder'
 nnoremap <silent> <leader>fr :so $MYVIMRC<CR>
 let g:which_key_map.f.r = 'reload-vimrc'
 
-" Git shortcuts -------------------------------------------
-"let g:which_key_map.g = {
-            "\ 'name' : '+git',
-            "\ 'g' : ['Git', 'git-status'],
-            "\ 'c' : ['Git commit', 'git-commit'],
-            "\}
-
-"let g:which_key_map.g.a = {
-            "\ 'name' : '+add',
-            "\ 'c' : ['Git add %', 'git-add[current-file]'],
-            "\ 'a' : ['Git add .', 'git-add[all]'],
-            "\}
-
-
-            
-            let g:which_key_map.g = { 'name' : '+git' }
+let g:which_key_map.g = { 'name' : '+git' }
 nnoremap <silent> <leader>gg :Git<CR>
 let g:which_key_map.g.g = 'git-status'
 

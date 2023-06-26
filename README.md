@@ -8,7 +8,7 @@ Unix Like (Linux/MacOS)
 =======================
 
 Clone the repo:
-`git clone https://github.com/lexrupy/vimfiles.git ~/.vim`
+`git clone git@github.com:lexrupy/vimfiles.git ~/.vim`
 
 Windows
 =======
