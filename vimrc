@@ -1,4 +1,4 @@
-" Simple Vim Configuration
+
 syntax on            " Enable syntax highlight
 filetype on          " Detect and set the filetype option and trigger the FileType Event
 filetype plugin on   " Load the plugin file for the file type, if any
@@ -152,8 +152,21 @@ nnoremap <silent> <leader>fr :so $MYVIMRC<CR>
 let g:which_key_map.f.r = 'reload-vimrc'
 
 " Git shortcuts -------------------------------------------
-let g:which_key_map.g = { 'name' : '+git' }
+"let g:which_key_map.g = {
+            "\ 'name' : '+git',
+            "\ 'g' : ['Git', 'git-status'],
+            "\ 'c' : ['Git commit', 'git-commit'],
+            "\}
 
+"let g:which_key_map.g.a = {
+            "\ 'name' : '+add',
+            "\ 'c' : ['Git add %', 'git-add[current-file]'],
+            "\ 'a' : ['Git add .', 'git-add[all]'],
+            "\}
+
+
+            
+            let g:which_key_map.g = { 'name' : '+git' }
 nnoremap <silent> <leader>gg :Git<CR>
 let g:which_key_map.g.g = 'git-status'
 
@@ -169,8 +182,13 @@ let g:which_key_map.g.b = 'git-blame'
 nnoremap <silent> <leader>gl :Git log<CR>
 let g:which_key_map.g.l = 'git-log'
 
-nnoremap <silent> <leader>ga :Git add %<CR>
-let g:which_key_map.g.a = 'git-add[current-file]'
+let g:which_key_map.g.a = { 'name' : '+add' }
+
+nnoremap <silent> <leader>gac :Git add %<CR>
+let g:which_key_map.g.a.c = 'add current-file'
+
+nnoremap <silent> <leader>gaa :Git add .<CR>
+let g:which_key_map.g.a.a = 'add current-file'
 
 nnoremap <silent> <leader>gc :Git commit<CR>
 let g:which_key_map.g.c = 'git-commit'
@@ -182,6 +200,7 @@ let g:which_key_map.o = {
       \ 'name' : '+open',
       \ 'q' : 'open-quickfix'    ,
       \ 'l' : 'open-locationlist',
+      \ 't' : ['terminal', 'terminal'],
       \ }
 
 " =======================================================
@@ -288,11 +307,6 @@ map <C-l> <C-w>l
 " Normal Mode Remaps
 " Open Fuzzy Finder
 "nnoremap <leader>f :Files<CR>
-
-nnoremap <leader>o <C-W>o
-
-
-
 
 " CTRL+DOWN  = Move current line DOWN
 nnoremap <C-Down> :m .+1<CR>==
