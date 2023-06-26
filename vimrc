@@ -84,24 +84,31 @@ nnoremap <Leader>ee :Lexplore<CR>
 
 
 call plug#begin()
+    " Third Party
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdtree'
     Plug 'sheerun/vim-polyglot'
     Plug 'jiangmiao/auto-pairs'
     Plug 'scrooloose/nerdcommenter'
+    Plug 'liuchengxu/vim-which-key'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    " Code Navigation
 "    Plug 'yggdroot/indentLine'
     "Plug 'ctrlpvim/ctrlp.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    " LSP
+    Plug 'prabirshrestha/vim-lsp' 
     " Themes
-    Plug 'morhetz/gruvbox'
+   " Plug 'morhetz/gruvbox'
+    Plug 'joshdick/onedark.vim'
+    Plug 'catppuccin/vim', { 'as': 'catppuccin' }
     Plug 'tomasr/molokai'
-    Plug 'gummesson/stereokai.vim'
+    "Plug 'gummesson/stereokai.vim'
     Plug 'drewtempelmeyer/palenight.vim'
-    Plug 'liuchengxu/vim-which-key'
+    
 
 call plug#end()
 
@@ -115,6 +122,9 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 
+let $FZF_DEFAULT_COMMAND = 'ag -l'
+"let $FZF_DEFAULT_COMMAND = 'ack -g ""'
+"let $FZF_DEFAULT_COMMAND = 'rg --files'
 
 " WichKey----------------------------------------------------------------------
 
@@ -144,8 +154,11 @@ let g:which_key_map.f.s = 'save-file'
 nnoremap <silent> <leader>fd :e $MYVIMRC<CR>
 let g:which_key_map.f.d = 'open-vimrc'
 
-nnoremap <silent> <leader>ff :Files<CR>
-let g:which_key_map.f.f = 'fuzzy-finder'
+nnoremap <silent> <leader>ff :GFiles<CR>
+let g:which_key_map.f.f = 'fuzzy-finder[git]'
+
+nnoremap <silent> <leader>fa :Files<CR>
+let g:which_key_map.f.f = 'fuzzy-finder[all]'
 
 nnoremap <silent> <leader>fr :so $MYVIMRC<CR>
 let g:which_key_map.f.r = 'reload-vimrc'
@@ -176,6 +189,10 @@ let g:which_key_map.g.a.a = 'add current-file'
 
 nnoremap <silent> <leader>gc :Git commit<CR>
 let g:which_key_map.g.c = 'git-commit'
+
+
+nnoremap <leader>e :NERDTreeToggle<CR>
+"let g:which_key_map.e = { 'name': 'show-project-explorer'}
 
 nnoremap <silent> <leader>oq  :copen<CR>
 nnoremap <silent> <leader>ol  :lopen<CR>
@@ -236,7 +253,6 @@ let g:which_key_map.w = {
 
 " NerdTree---------------------------------------------------------------------
 
-nnoremap <leader>e :NERDTreeToggle<CR>
 
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
@@ -276,7 +292,7 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-colorscheme molokai
+colorscheme catppuccin_mocha
 
 " Shortcuts for split navigation
 map <C-h> <C-w>h
@@ -292,23 +308,18 @@ map <C-l> <C-w>l
 " Open Fuzzy Finder
 "nnoremap <leader>f :Files<CR>
 
-" CTRL+DOWN  = Move current line DOWN
-nnoremap <C-Down> :m .+1<CR>==
-" CTRL+UP = Move current Line UP
-nnoremap <C-Up> :m .-2<CR>==
 " Duplicate line under cursor
 nmap <silent> <leader>du :t. <CR>
 " Move current line DOWN
-inoremap <C-Down> <Esc>:m .+1<CR>==gi
-" Move current selection DOWN
-vnoremap <C-Down> :m '>+1<CR>gv=gv
+inoremap <A-j><Esc>:m .+1<CR>==gi
+vnoremap <A-j>:m '>+1<CR>gv=gv
 " Move current line UP
-inoremap <C-Up> <Esc>:m .-2<CR>==gi
+inoremap <A-k><Esc>:m .-2<CR>==gi
 " Move current selection UP
-vnoremap <C-Up> :m '<-2<CR>gv=gv
+vnoremap <A-k>:m '<-2<CR>gv=gv
 " Cycle buffers with TAB/SHIFT-TAB
 nnoremap <Tab> :bn<CR>
-nnoremap <S-Tab> :bp<CR>
+nnoremap <S-Tab> :bp<CR> 
 " For convenience in abnt keyboards, remap ç to :
 nnoremap ç :
 nnoremap Ç :
