@@ -21,7 +21,7 @@ set incsearch        " Incremental search
 set hlsearch         " Highlight the search matches
 ""set smartcase        " Consider case if there is a upper case character
 set scrolloff=2      " Minimum number of lines to keep above and below the cursor
-set colorcolumn=100  " Draws a line at the given line to keep aware of the line size
+set colorcolumn=160  " Draws a line at the given line to keep aware of the line size
 set signcolumn=yes   " Add a column on the left. Useful for linting
 set cmdheight=2      " Give more space for displaying messages
 set updatetime=100   " Time in miliseconds to consider the changes
@@ -100,7 +100,10 @@ call plug#begin()
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     " LSP
-    Plug 'prabirshrestha/vim-lsp' 
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
     " Themes
    " Plug 'morhetz/gruvbox'
     Plug 'joshdick/onedark.vim'
@@ -108,7 +111,7 @@ call plug#begin()
     Plug 'tomasr/molokai'
     "Plug 'gummesson/stereokai.vim'
     Plug 'drewtempelmeyer/palenight.vim'
-    
+
 
 call plug#end()
 
@@ -121,6 +124,50 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+
+inoremap <expr> <c-space>   pumvisible() ? "\<C-n>" : "\<c-space>"
+
+" Fuzzy Finder
 
 let $FZF_DEFAULT_COMMAND = 'ag -l'
 "let $FZF_DEFAULT_COMMAND = 'ack -g ""'
@@ -191,7 +238,20 @@ nnoremap <silent> <leader>gc :Git commit<CR>
 let g:which_key_map.g.c = 'git-commit'
 
 
+let g:which_key_map.t = { 'name' : '+toggle-split' }
+
+nmap <leader>tk <C-w>t<C-w>K
+let g:which_key_map.t.k = 'vertical'
+
+nmap <leader>th <C-w>t<C-w>H
+let g:which_key_map.t.h = 'horizontal'
+
+
+
+
+
 nnoremap <leader>e :NERDTreeToggle<CR>
+nnoremap <leader>c :bd<CR>
 "let g:which_key_map.e = { 'name': 'show-project-explorer'}
 
 nnoremap <silent> <leader>oq  :copen<CR>
@@ -271,6 +331,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 let g:airline_theme = 'dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline_theme = 'catppuccin_mocha'
 
 
 "GUI Config ------------------------------------------------------------------
@@ -319,7 +380,7 @@ inoremap <A-k><Esc>:m .-2<CR>==gi
 vnoremap <A-k>:m '<-2<CR>gv=gv
 " Cycle buffers with TAB/SHIFT-TAB
 nnoremap <Tab> :bn<CR>
-nnoremap <S-Tab> :bp<CR> 
+nnoremap <S-Tab> :bp<CR>
 " For convenience in abnt keyboards, remap ç to :
 nnoremap ç :
 nnoremap Ç :
