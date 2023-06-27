@@ -331,7 +331,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 let g:airline_theme = 'dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'catppuccin_mocha'
+let g:airline_theme = 'onedark'
 
 
 "GUI Config ------------------------------------------------------------------
@@ -353,7 +353,7 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
-colorscheme catppuccin_mocha
+colorscheme onedark
 
 " Shortcuts for split navigation
 map <C-h> <C-w>h
@@ -388,16 +388,24 @@ nnoremap Ç :
 nno <F4> <Esc>:let @/=""<CR>
 " Toggle Relative Line Numbers NORMAL mode
 nmap <silent><F3> :exe'se'&nu+&rnu?'rnu!':'nu'<CR>
-" Toggle Relative Line Numbers INSERT mode
+" Toggle Relative Line Number INSER mode
 imap <silent><F3> <esc> :exe'se'&nu+&rnu?'rnu!':'nu'<CR>I
 
+
+" Resize Splits
+nmap <C-Left> <C-w><
+nmap <C-Right> <C-w>>
+nmap <C-Down> <C-w>-
+nmap <C-Up> <C-w>+
+
+
 " Shift fixes
-cmap W w
-cmap WQ wq
-cmap wQ wq
-cmap Wq wq
-cmap Q q
-cmap Tabe tabe
+" cmap W w
+" cmap WQ wq
+" cmap wQ wq
+" cmap Wq wq
+" cmap Q q
+" cmap Tabe tabe
 
 
 " Custom Functions
