@@ -46,12 +46,14 @@ set showbreak===>
 set nowrap
 set list
 set listchars=tab:▸\ ,eol:↵,trail:🢖,extends:>,precedes:<
-set nobackup         " No backup files
-set nowritebackup    " No backup files
-set noswapfile       " No swap files
+"" set nobackup         " No backup files
+"" set nowritebackup    " No backup files
+"" set noswapfile       " No swap files
+"" set noundofile       " No undo files
 " Backup and swap dir are temporary dirs, so should go there
-set backupdir=./.backup//
-set directory=./.swp//
+set backupdir=/tmp//
+set directory=/tmp//
+set undodir=/tmp//
 set wm=1 " Set the right margin size for autowrap
 set shiftround " When with 3 spaces and hit > go to 4, not 5
 set ttymouse=xterm2
@@ -87,10 +89,11 @@ call plug#begin()
     " Third Party
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
     Plug 'preservim/nerdtree'
     Plug 'sheerun/vim-polyglot'
     Plug 'jiangmiao/auto-pairs'
-    Plug 'scrooloose/nerdcommenter'
+    "Plug 'scrooloose/nerdcommenter'
     Plug 'liuchengxu/vim-which-key'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -205,7 +208,7 @@ nnoremap <silent> <leader>ff :GFiles<CR>
 let g:which_key_map.f.f = 'fuzzy-finder[git]'
 
 nnoremap <silent> <leader>fa :Files<CR>
-let g:which_key_map.f.f = 'fuzzy-finder[all]'
+let g:which_key_map.f.a = 'fuzzy-finder[all]'
 
 nnoremap <silent> <leader>fr :so $MYVIMRC<CR>
 let g:which_key_map.f.r = 'reload-vimrc'
@@ -247,11 +250,11 @@ nmap <leader>th <C-w>t<C-w>H
 let g:which_key_map.t.h = 'horizontal'
 
 
-
-
-
 nnoremap <leader>e :NERDTreeToggle<CR>
-nnoremap <leader>c :bd<CR>
+"nnoremap <leader>x :bd<CR>
+"nnoremap <silent><C-S>:update<CR>
+"vnoremap <silent><C-S><C-C>:update<CR>
+"inoremap <silent><C-S><C-O>:update<CR>
 "let g:which_key_map.e = { 'name': 'show-project-explorer'}
 
 nnoremap <silent> <leader>oq  :copen<CR>
@@ -460,29 +463,29 @@ if has("autocmd")
 endif
 
 
-" Windows Stuff
-if s:windows_os
-    if filewritable(expand('%:p:h')."\.")
-        if !filewritable(expand('%:p:h').'\.backup')
-            silent execute '!mkdir "'.expand('%:p:h').'\.backup"'
-        endif
-        if !filewritable(expand('%:p:h').'\.swp')
-            silent execute '!mkdir "'.expand('%:p:h').'\.swp"'
-        endif
-    endif
-
-    "set shell=powershell.exe
-    "set shellcmdflag=-command
-    "set shellquote=\"
-    "set shellxquote=
-else
-    if filewritable(".")
-        if ! filewritable(".backup")
-            silent execute '!umask 002; mkdir .backup'
-        endif
-        if ! filewritable(".swp")
-            silent execute '!umask 002; mkdir .swp'
-        endif
-    endif
-endif
+"" Windows Stuff
+"if s:windows_os
+"    if filewritable(expand('%:p:h')."\.")
+"        if !filewritable(expand('%:p:h').'\.backup')
+"            silent execute '!mkdir "'.expand('%:p:h').'\.backup"'
+"        endif
+"        if !filewritable(expand('%:p:h').'\.swp')
+"            silent execute '!mkdir "'.expand('%:p:h').'\.swp"'
+"        endif
+"    endif
+"
+"    "set shell=powershell.exe
+"    "set shellcmdflag=-command
+"    "set shellquote=\"
+"    "set shellxquote=
+"else
+"    if filewritable(".")
+"        if ! filewritable(".backup")
+"            silent execute '!umask 002; mkdir .backup'
+"        endif
+"        if ! filewritable(".swp")
+"            silent execute '!umask 002; mkdir .swp'
+"        endif
+"    endif
+"endif
 
