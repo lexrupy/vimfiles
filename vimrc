@@ -62,6 +62,17 @@ set showcmd
 set termwinsize=10x0
 let s:windows_os = has("win16") || has("win32") || has("win64")
 
+" User a line cursor for INSERT mode an block for other modes
+" 0 = blinking block
+" 1 = blinking block(default)
+" 2 = steady block
+" 3 = blinking underline
+" 4 = steady underline
+" 5 = blinking bar (xterm)
+" 6 = steay bar (xterm)
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
@@ -251,8 +262,10 @@ let g:which_key_map.t.h = 'horizontal'
 
 
 nnoremap <leader>e :NERDTreeToggle<CR>
-"nnoremap <leader>x :bd<CR>
-"nnoremap <silent><C-S>:update<CR> vnoremap <silent><C-S><C-C>:update<CR> inoremap <silent><C-S><C-O>:update<CR>
+nnoremap <leader>c :b#<bar>bd#<CR>
+nnoremap <c-s> :w<CR>
+vnoremap <c-s> <C-c>:w<CR>
+inoremap <c-s> <C-o>:w<CR>
 "let g:which_key_map.e = { 'name': 'show-project-explorer'}
 
 nnoremap <silent> <leader>oq  :copen<CR>
@@ -264,6 +277,7 @@ let g:which_key_map.o = {
       \ 'l' : 'open-locationlist',
       \ 't' : ['terminal', 'terminal'],
       \ }
+
 
 " =======================================================
 " Create menus not based on existing mappings:
@@ -286,7 +300,7 @@ let g:which_key_map.b = {
       \ 'l' : ['blast'     , 'last-buffer']     ,
       \ 'n' : ['bnext'     , 'next-buffer']     ,
       \ 'p' : ['bprevious' , 'previous-buffer'] ,
-      \ '?' : ['Buffers'   , 'fzf-buffer']      ,
+      \ 'b' : ['Buffers'   , 'fzf-buffer']      ,
       \ }
 
 
