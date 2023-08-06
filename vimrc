@@ -115,7 +115,7 @@ call plug#begin()
     "Plug 'gummesson/stereokai.vim'
     Plug 'drewtempelmeyer/palenight.vim'
 
-
+    Plug 'romainl/vim-cool'
 call plug#end()
 
 
@@ -235,7 +235,7 @@ nnoremap <silent> <leader>gac :Git add %<CR>
 let g:which_key_map.g.a.c = 'add current-file'
 
 nnoremap <silent> <leader>gaa :Git add .<CR>
-let g:which_key_map.g.a.a = 'add current-file'
+let g:which_key_map.g.a.a = 'add all changes'
 
 nnoremap <silent> <leader>gc :Git commit<CR>
 let g:which_key_map.g.c = 'git-commit'
@@ -252,9 +252,7 @@ let g:which_key_map.t.h = 'horizontal'
 
 nnoremap <leader>e :NERDTreeToggle<CR>
 "nnoremap <leader>x :bd<CR>
-"nnoremap <silent><C-S>:update<CR>
-"vnoremap <silent><C-S><C-C>:update<CR>
-"inoremap <silent><C-S><C-O>:update<CR>
+"nnoremap <silent><C-S>:update<CR> vnoremap <silent><C-S><C-C>:update<CR> inoremap <silent><C-S><C-O>:update<CR>
 "let g:which_key_map.e = { 'name': 'show-project-explorer'}
 
 nnoremap <silent> <leader>oq  :copen<CR>
@@ -388,6 +386,8 @@ nnoremap <S-Tab> :bp<CR>
 nnoremap ç :
 nnoremap Ç :
 " Clear search highlights
+
+" nnoremap <silent><CR> :noh<CR><CR>
 nno <F4> <Esc>:let @/=""<CR>
 " Toggle Relative Line Numbers NORMAL mode
 nmap <silent><F3> :exe'se'&nu+&rnu?'rnu!':'nu'<CR>
