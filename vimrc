@@ -76,6 +76,9 @@ let &t_EI = "\e[2 q"
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
+" Try to prevent buffers loadint inside NerdTree and other readonly windows
+let g:miniBufExplModSelTarget = 1
+
 command! MakeTags !ctags -R .
 
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
@@ -127,6 +130,8 @@ call plug#begin()
     Plug 'drewtempelmeyer/palenight.vim'
 
     Plug 'romainl/vim-cool'
+
+    Plug 'vim-test/vim-test'
 call plug#end()
 
 
@@ -263,9 +268,11 @@ let g:which_key_map.t.h = 'horizontal'
 
 nnoremap <leader>e :NERDTreeToggle<CR>
 nnoremap <leader>c :b#<bar>bd#<CR>
+" Save facilities
 nnoremap <c-s> :w<CR>
 vnoremap <c-s> <C-c>:w<CR>
 inoremap <c-s> <C-o>:w<CR>
+nmap <leader>s :w<CR>
 "let g:which_key_map.e = { 'name': 'show-project-explorer'}
 
 nnoremap <silent> <leader>oq  :copen<CR>
@@ -414,6 +421,15 @@ nmap <C-Left> <C-w><
 nmap <C-Right> <C-w>>
 nmap <C-Down> <C-w>-
 nmap <C-Up> <C-w>+
+
+function TurnOffCaps()  
+    let capsState = matchstr(system('xset -q'), '00: Caps Lock:\s\+\zs\(on\|off\)\ze')
+    if capsState == 'on'
+        silent! execute ':!xdotool key Caps_Lock'
+    endif
+endfunction
+
+au InsertLeave * call TurnOffCaps()
 
 
 " Shift fixes
