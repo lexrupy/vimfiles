@@ -259,8 +259,8 @@ let g:which_key_map.g.c = 'git-commit'
 
 let g:which_key_map.t = { 'name' : '+toggle-split' }
 
-nmap <leader>tk <C-w>t<C-w>K
-let g:which_key_map.t.k = 'vertical'
+nmap <leader>tv <C-w>t<C-w>K
+let g:which_key_map.t.v = 'vertical'
 
 nmap <leader>th <C-w>t<C-w>H
 let g:which_key_map.t.h = 'horizontal'
