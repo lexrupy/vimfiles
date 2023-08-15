@@ -207,6 +207,7 @@ call which_key#register('<Space>', "g:which_key_map")
 
 
 
+
 " =======================================================
 " Create menus based on existing mappings
 " =======================================================
@@ -482,6 +483,14 @@ silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
 
 
+function! ConfigureKeyboard()
+    let keybLayout = matchstr(system('setxkbmap -query'), 'layout:\s\+\zs\(us\|br\)\ze')
+    if keybLayout == 'us'
+        nnoremap ; :
+    endif
+endfunction
+
+
 " Auto Comandos
 
 " If vim was compiled with suport for autocmd
@@ -490,6 +499,7 @@ if has("autocmd")
   autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
   autocmd FileType netrw setl bufhidden=wipe
   autocmd VimLeavePre *  call QuitNetrw()
+  autocmd VimEnter * call ConfigureKeyboard()
 endif
 
 
