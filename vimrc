@@ -1,4 +1,3 @@
-
 syntax on            " Enable syntax highlight
 filetype on          " Detect and set the filetype option and trigger the FileType Event
 filetype plugin on   " Load the plugin file for the file type, if any
@@ -56,11 +55,18 @@ set directory=/tmp//
 set undodir=/tmp//
 set wm=1 " Set the right margin size for autowrap
 set shiftround " When with 3 spaces and hit > go to 4, not 5
-set ttymouse=xterm2
+" Debian not like this setting
+"set ttymouse=xterm2
+" Prevent display garbage
+set t_RV=
 set formatoptions-=t
 set showcmd
 set termwinsize=10x0
+
+
 let s:windows_os = has("win16") || has("win32") || has("win64")
+
+
 
 " User a line cursor for INSERT mode an block for other modes
 " 0 = blinking block
@@ -124,14 +130,14 @@ call plug#begin()
     " Themes
    " Plug 'morhetz/gruvbox'
     Plug 'joshdick/onedark.vim'
-    Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-    Plug 'tomasr/molokai'
+"    Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+"    Plug 'tomasr/molokai'
     "Plug 'gummesson/stereokai.vim'
-    Plug 'drewtempelmeyer/palenight.vim'
+"    Plug 'drewtempelmeyer/palenight.vim'
 
-    Plug 'romainl/vim-cool'
+"    Plug 'romainl/vim-cool'
 
-    Plug 'vim-test/vim-test'
+"    Plug 'vim-test/vim-test'
 call plug#end()
 
 
@@ -528,4 +534,3 @@ endif
 "        endif
 "    endif
 "endif
-
