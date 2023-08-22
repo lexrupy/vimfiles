@@ -138,6 +138,7 @@ call plug#begin()
 "    Plug 'romainl/vim-cool'
 
 "    Plug 'vim-test/vim-test'
+    Plug 'tribela/vim-transparent'
 call plug#end()
 
 
@@ -370,7 +371,7 @@ if has('gui_running')
     if s:windows_os
         set guifont=agave\ Nerd\ Font\ Mono:h13
     else
-        set guifont=agave\ Nerd\ Font\ Mono\ 13
+        set guifont=agave\ Nerd\ Font\ Mono\ 16
     endif
     set backspace=2
     set lines=60 columns=125 linespace=0
