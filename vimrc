@@ -22,7 +22,7 @@ set hlsearch         " Highlight the search matches
 set scrolloff=2      " Minimum number of lines to keep above and below the cursor
 set colorcolumn=160  " Draws a line at the given line to keep aware of the line size
 set signcolumn=yes   " Add a column on the left. Useful for linting
-set cmdheight=2      " Give more space for displaying messages
+set cmdheight=1      " Give more space for displaying messages
 set updatetime=100   " Time in miliseconds to consider the changes
 set encoding=utf-8   " The encoding should be utf-8 to activate the font icons
 set splitright       " Create the vertical splits to the right
@@ -62,7 +62,6 @@ set t_RV=
 set formatoptions-=t
 set showcmd
 set termwinsize=10x0
-
 
 let s:windows_os = has("win16") || has("win32") || has("win64")
 
@@ -138,7 +137,7 @@ call plug#begin()
 "    Plug 'romainl/vim-cool'
 
 "    Plug 'vim-test/vim-test'
-    Plug 'tribela/vim-transparent'
+    " Plug 'tribela/vim-transparent'
 call plug#end()
 
 
@@ -203,9 +202,9 @@ let $FZF_DEFAULT_COMMAND = 'ag -l'
 
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 let g:mapleader = "\<Space>"
-let g:maplocalleader = ','
+" let g:maplocalleader = ','
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+" nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 " Define prefix dictionary
 let g:which_key_map =  {}
@@ -430,7 +429,7 @@ nmap <C-Right> <C-w>>
 nmap <C-Down> <C-w>-
 nmap <C-Up> <C-w>+
 
-function TurnOffCaps()  
+function TurnOffCaps()
     let capsState = matchstr(system('xset -q'), '00: Caps Lock:\s\+\zs\(on\|off\)\ze')
     if capsState == 'on'
         silent! execute ':!xdotool key Caps_Lock'
@@ -438,6 +437,17 @@ function TurnOffCaps()
 endfunction
 
 au InsertLeave * call TurnOffCaps()
+
+" function! JumpToNextWord()
+"     normal w
+"     while strpart(getline('.'), col('.')-1, 1) !~ '\w'
+"         normal w
+"     endwhile
+" endfunction
+
+
+" nnoremap <silent> ,w :call JumpToNextWord()<CR>
+
 
 
 " Shift fixes
