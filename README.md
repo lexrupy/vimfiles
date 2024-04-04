@@ -1,18 +1,17 @@
 
-This is my ~/.vim dir
+This is a simple ~/.vim dir to use on remote servers
 
-Installation
-============
-
-Unix Like (Linux/MacOS)
-=======================
+Installation Unix Like (Linux/MacOS)
+====================================
 
 Clone the repo:
-`git clone git@github.com:lexrupy/vimfiles.git ~/.vim`
+`git clone https://github.com/lexrupy/vimfiles.git ~/.vim`
 
-Windows
-=======
 
-Clone the repo:
-`git clone https://github.com/lexrupy/vimfiles.git ~/vimfiles`
+Features
+========
 
+Fuzzy file finder using <leader>ff
+Find Word using <leader>fw "to find words with spaces you need to quote"
+
+other usefull features. please read de vimrc file to understand what is going on
