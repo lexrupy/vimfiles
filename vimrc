@@ -94,8 +94,10 @@ nnoremap <leader>ff :find
 nnoremap <leader>fw :grep
 nnoremap <leader>c :bd<cr>
 
+" go to definition
 nnoremap gd g<c-]>
 
+" Remap cedilla to : so pt-br keyboars can access command without shift
 nnoremap ç :
 nnoremap Ç :
 vnoremap ç :
@@ -156,7 +158,7 @@ silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
 
 
-" Auto Comandos
+" Auto Comands
 
 " If vim was compiled with suport for autocmd
 if has("autocmd")

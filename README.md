@@ -11,7 +11,15 @@ Clone the repo:
 Features
 ========
 
-Fuzzy file finder using <leader>ff
-Find Word using <leader>fw "to find words with spaces you need to quote"
+Leader Key set to \<space\>
+
+  * \<leader\>ff: Find Files (Fuzzy) thanks to path +=\*\*
+  * \<leader\>fw: Find Word (using ripgrep, so you need to install ripgrep sudo apt install ripgrep)
+  * \<leader\>e: Toggle file Netrw file explorer. it is customized and simplified
+  * \<leader\>c: Close current buffer
+  * \<tab\>/\<shift-tab\>: Cycle fowward and backwards on open buffers
+  * gd: Go to definition. please uset MakeTags command to generate ctags (require exuberant-ctags sudo apt install exuberant-ctags)
+  * Automatically remove trailing spaces on save on a variety of file types
+
 
 other usefull features. please read de vimrc file to understand what is going on
