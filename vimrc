@@ -53,6 +53,8 @@ set shiftround " When with 3 spaces and hit > go to 4, not 5
 set formatoptions-=t
 set background=dark
 set statusline=%<%h%m%r%h%w%y\ ft:%{&ft}\ ff:%{&ff}\%=\ col:%04v\ lin:%04l\/%04L\ hex:%03.3B\ ascii:%03.3b\ %03P
+set undodir=~/.vim/undodir
+set undofile
 
 set grepprg=rg\ --vimgrep\ --hidden
 
