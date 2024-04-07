@@ -7,7 +7,6 @@ filetype indent on   " Load the indent file for the file type, if any
 set nocompatible
 set relativenumber
 set path+=**
-set nu               " Enable line numbers
 set tabstop=4        " Show existing tab with 4 spaces width
 set softtabstop=4    " Show existing tab with 4 spaces width
 set shiftwidth=4     " When indenting with '>', use 4 spaces width
@@ -36,6 +35,7 @@ set clipboard=unnamedplus " Clippboard Compartilhada
 "set paste
 set wildmenu
 set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
+set wildoptions=pum
 set visualbell t_vb=
 set ttyfast
 set sm
@@ -56,7 +56,8 @@ set statusline=%<%h%m%r%h%w%y\ ft:%{&ft}\ ff:%{&ff}\%=\ col:%04v\ lin:%04l\/%04L
 set undodir=~/.vim/undodir
 set undofile
 
-set grepprg=rg\ --vimgrep\ --hidden
+"set grepprg=rg\ --vimgrep\ --hidden
+set grepprg=git\ grep\ -n
 
 
 "Change cursor type on insert mode (test if it works depend on terminal)
@@ -70,9 +71,29 @@ set grepprg=rg\ --vimgrep\ --hidden
 let &t_SI = "\e[5 q"
 let &t_EI = "\e[2 q"
 
-colorscheme habamax
+colorscheme slate
 
 command! MakeTags !ctags-exuberant .
+
+function! Grep(...)
+	return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+endfunction
+
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
+"command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
+
+cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
+"cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
+
+augroup quickfix
+	autocmd!
+	autocmd QuickFixCmdPost cgetexpr cwindow
+"	autocmd QuickFixCmdPost lgetexpr lwindow
+augroup END
+
+
+autocmd FileType qf nnoremap <buffer><silent> q :cclose<CR>
+" autocmd FileType qf nnoremap <buffer> q :lclose<CR>
 
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
 
@@ -90,12 +111,15 @@ let g:netrw_hide = 1
 let mapleader = ' '
 
 nnoremap <leader>e :Lex<CR>
-nnoremap <leader>ff :find
-nnoremap <leader>fw :grep
+nnoremap <leader>ff :find 
+nnoremap <leader>fw :Grep 
 nnoremap <leader>c :bd<cr>
 
 " go to definition
 nnoremap gd g<c-]>
+
+nnoremap [q :cprev<cr>
+nnoremap ]q :cnext<cr>
 
 " Remap cedilla to : so pt-br keyboars can access command without shift
 nnoremap ç :
@@ -129,7 +153,7 @@ nnoremap <S-Tab> :bp<CR>
 
 "map <silent> <C-l> :nohlsearch<CR>
 " map <silent> <Esc> :let @/=""<CR>
-map <silent> <Esc> :nohlsearch<CR>
+noremap <CR> :let @/="" <CR> <CR>
 
 " Custom Functions
 "
