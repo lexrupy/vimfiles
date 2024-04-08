@@ -216,6 +216,9 @@ if has("autocmd")
     autocmd FileType qf nnoremap <buffer><silent><c-n> :cnext<CR>:cclose<cr>:copen<cr>
     autocmd FileType qf nnoremap <buffer><silent><c-p> :cprev<CR>:cclose<cr>:copen<cr>
     autocmd FileType help nnoremap <buffer><silent><esc> :bd<cr>
+
+    autocmd FileType netrw autocmd BufLeave <buffer> if &filetype == 'netrw' | :bd | endif
+
     " autocmd FileType qf nnoremap <buffer> q :lclose<CR>
     autocmd InsertLeave * call TurnOffCaps()
     " Strip trailing spaces from theese type of files before save
