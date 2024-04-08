@@ -37,7 +37,6 @@ set clipboard=unnamedplus " Clippboard Compartilhada
 "set paste
 set wildmenu
 set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
-set wildoptions=pum
 set visualbell t_vb=
 set sm
 set matchtime=5
@@ -61,6 +60,19 @@ set undofile
 "set guicursor+=a:blink0
 set grepprg=rg\ --vimgrep\ --hidden
 "set grepprg=git\ grep\ -n\ --column
+
+
+if has('wildoptions')
+    " A opção 'wildoptions' está disponível
+    if has('patch-8.2.0000') || has('nvim-0.5')
+        " Vim versão 8.2 ou superior ou Neovim versão 0.5 ou superior
+        set wildoptions=pum
+    endif
+endif
+" if v:version >= 900
+"     set wildoptions=pum
+" endif
+
 
 
 "Change cursor type on insert mode (test if it works depend on terminal)
@@ -161,7 +173,7 @@ nnoremap <silent><Tab> :bn<CR>
 nnoremap <silent><S-Tab> :bp<CR>
 
 " map <silent> <C-l> :nohlsearch<CR>
-map <silent> <Esc> :let @/=""<CR>
+map <silent> <Esc> :let @/=""<CR><ESC>
 " map <silent><esc> :noh<cr>
 " noremap <silent><CR> :let @/="" <CR> <CR>
 
