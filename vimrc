@@ -173,7 +173,7 @@ nnoremap <silent><Tab> :bn<CR>
 nnoremap <silent><S-Tab> :bp<CR>
 
 " map <silent> <C-l> :nohlsearch<CR>
-map <silent> <Esc> :let @/=""<CR><ESC>
+nnoremap <silent><Esc> :let @/=""<CR><esc>
 " map <silent><esc> :noh<cr>
 " noremap <silent><CR> :let @/="" <CR> <CR>
 
