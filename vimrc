@@ -4,9 +4,11 @@ filetype plugin on   " Load the plugin file for the file type, if any
 filetype indent on   " Load the indent file for the file type, if any
 
 "set autochdir         " Auto change dir to dir of current file
-set nocompatible
-set relativenumber
-set path+=**
+set nocompatible     " Forget about old vi compatibility
+set noshowmode       " Not display mode on command linke since we display mode in statusbar
+set number           " Display line number
+set relativenumber   " Make linenumbers relative to cursor line
+set path+=**         " Let FIND and other stuff locate files recursively
 set tabstop=4        " Show existing tab with 4 spaces width
 set softtabstop=4    " Show existing tab with 4 spaces width
 set shiftwidth=4     " When indenting with '>', use 4 spaces width
@@ -29,7 +31,7 @@ set splitbelow       " Create the horizontal splits below
 set autoread         " Update vim after file update from outside
 set mouse=a          " Enable mouse support
 set laststatus=2     " Always show the statusline
-set shortmess+=c
+set shortmess+=c     " Disable completion messages
 set backspace=eol,start,indent
 set clipboard=unnamedplus " Clippboard Compartilhada
 "set paste
@@ -37,7 +39,6 @@ set wildmenu
 set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
 set wildoptions=pum
 set visualbell t_vb=
-set ttyfast
 set sm
 set matchtime=5
 set showbreak===>
@@ -50,14 +51,16 @@ set noswapfile       " No swap files
 set wm=1 " Set the right margin size for autowrap
 set shiftround " When with 3 spaces and hit > go to 4, not 5
 "set ttymouse=xterm2
+set ttimeout
+set ttimeoutlen=1
+set ttyfast
 set formatoptions-=t
 set background=dark
-set statusline=%<%h%m%r%h%w%y\ ft:%{&ft}\ ff:%{&ff}\%=\ col:%04v\ lin:%04l\/%04L\ hex:%03.3B\ ascii:%03.3b\ %03P
 set undodir=~/.vim/undodir
 set undofile
-
-"set grepprg=rg\ --vimgrep\ --hidden
-set grepprg=git\ grep\ -n
+"set guicursor+=a:blink0
+set grepprg=rg\ --vimgrep\ --hidden
+"set grepprg=git\ grep\ -n\ --column
 
 
 "Change cursor type on insert mode (test if it works depend on terminal)
@@ -70,6 +73,7 @@ set grepprg=git\ grep\ -n
 "Ps = 6  -> steady bar (xterm).
 let &t_SI = "\e[5 q"
 let &t_EI = "\e[2 q"
+let &t_SR = "\e[3 q"
 
 colorscheme slate
 
@@ -92,10 +96,6 @@ augroup quickfix
 augroup END
 
 
-autocmd FileType qf nnoremap <buffer><silent>q :cclose<CR>
-autocmd FileType qf nnoremap <buffer><silent>j :cnext<CR>:cclose<cr>:copen<cr>
-autocmd FileType qf nnoremap <buffer><silent>k :cprev<CR>>:cclose<cr>:copen<cr>
-" autocmd FileType qf nnoremap <buffer> q :lclose<CR>
 
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
 
@@ -112,16 +112,17 @@ let g:netrw_hide = 1
 
 let mapleader = ' '
 
-nnoremap <leader>e :Lex<CR>
+nnoremap <silent><leader>e :Lex<CR>
 nnoremap <leader>ff :find 
 nnoremap <leader>fw :Grep 
-nnoremap <leader>c :bd<cr>
+nnoremap <silent><leader>c :bd<cr>
 nnoremap <leader>b :b 
 nnoremap <leader>gg :silent call system('lazygit') <cr>:redr!<cr>
 
 " go to definition
 nnoremap gd g<c-]>
 
+" Navigate quickfix list on normal mode
 nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
 
@@ -131,7 +132,10 @@ nnoremap Ç :
 vnoremap ç :
 vnoremap Ç :
 
-" Shortcuts for split navigation
+" Make current word UNDER cursor uppercase (only insert mode)
+inoremap <c-h> <esc>lgUiwi
+
+" Shortcuts for SPLIT navigation
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
@@ -145,21 +149,28 @@ map <C-l> <C-w>l
 nmap <silent> <leader>du :t. <CR>
 " CTRL+UP = Move current Line UP
 " CTRL+DOWN  = Move current line DOWN
-nnoremap <C-Down> :m .+1<CR>==
-nnoremap <C-Up> :m .-2<CR>==
-inoremap <C-Down> <Esc>:m .+1<CR>==gi
-inoremap <C-Up> <Esc>:m .-2<CR>==gi
-vnoremap <C-Down> :m '>+1<CR>gv=gv
-vnoremap <C-Up> :m '<-2<CR>gv=gv
+nnoremap <silent><C-Down> :m .+1<CR>==
+nnoremap <silent><C-Up> :m .-2<CR>==
+inoremap <silent><C-Down> <Esc>:m .+1<CR>==gi
+inoremap <silent><C-Up> <Esc>:m .-2<CR>==gi
+vnoremap <silent><C-Down> :m '>+1<CR>gv=gv
+vnoremap <silent><C-Up> :m '<-2<CR>gv=gv
 
 " Cycle buffes pressing TAB
-nnoremap <Tab> :bn<CR>
-nnoremap <S-Tab> :bp<CR>
+nnoremap <silent><Tab> :bn<CR>
+nnoremap <silent><S-Tab> :bp<CR>
 
-"map <silent> <C-l> :nohlsearch<CR>
-" map <silent> <Esc> :let @/=""<CR>
-noremap <silent><CR> :let @/="" <CR> <CR>
+" map <silent> <C-l> :nohlsearch<CR>
+map <silent> <Esc> :let @/=""<CR>
+" map <silent><esc> :noh<cr>
+" noremap <silent><CR> :let @/="" <CR> <CR>
 
+" Prevent loosing visual selection when indenting
+vnoremap > >gv
+vnoremap < <gv
+" Also indent with tab and shift-tab
+vnoremap <tab> >gv
+vnoremap <s-tab> <gv
 " Custom Functions
 "
 " Preserve history and cursor position while executing the given command
@@ -183,6 +194,16 @@ function! StripBlankLines()
   call Preserve("g/^$/d")
 endfunction
 
+
+function TurnOffCaps()  
+    let capsState = matchstr(system('xset -q'), '00: Caps Lock:\s\+\zs\(on\|off\)\ze')
+    if capsState == 'on'
+        silent! execute ':!xdotool key Caps_Lock'
+    endif
+endfunction
+
+
+
 silent! nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
 silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
 
@@ -191,7 +212,67 @@ silent! nnoremap <silent> <F6> :call StripBlankLines()<CR>
 
 " If vim was compiled with suport for autocmd
 if has("autocmd")
-  " Strip trailing spaces from theese type of files before save
-  autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
+    autocmd FileType qf nnoremap <buffer><silent><esc> :cclose<CR>
+    autocmd FileType qf nnoremap <buffer><silent><c-n> :cnext<CR>:cclose<cr>:copen<cr>
+    autocmd FileType qf nnoremap <buffer><silent><c-p> :cprev<CR>:cclose<cr>:copen<cr>
+    autocmd FileType help nnoremap <buffer><silent><esc> :bd<cr>
+    " autocmd FileType qf nnoremap <buffer> q :lclose<CR>
+    autocmd InsertLeave * call TurnOffCaps()
+    " Strip trailing spaces from theese type of files before save
+    autocmd BufWritePre *.py,*.lua,*.rb,*.rake,*.erb,*.yml,*.css,*.scss,*.sass,*.js,*.json,*.coffee,*.html,*.md,*.rdoc,*.textile :call StripTrailingWhitespaces()
 endif
 
+
+" Statusline Stuff-------------
+" status bar colors
+au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
+au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+
+
+let b:keymap_name = "CAPS"
+
+" Status Line Custom
+let g:currentmode={
+    \ 'n'      : 'Normal',
+    \ 'no'     : 'Normal·Operator Pending',
+    \ 'v'      : 'Visual',
+    \ 'V'      : 'V·Line',
+    \ "\<C-V>" : 'V·Block',
+    \ 's'      : 'Select',
+    \ 'S'      : 'S·Line',
+    \ "\<C-S>" : 'S·Block',
+    \ 'i'      : 'Insert',
+    \ 'R'      : 'Replace',
+    \ 'Rv'     : 'V·Replace',
+    \ 'c'      : 'Command',
+    \ 'cv'     : 'Vim Ex',
+    \ 'ce'     : 'Ex',
+    \ 'r'      : 'Prompt',
+    \ 'rm'     : 'More',
+    \ 'r?'     : 'Confirm',
+    \ '!'      : 'Shell',
+    \ 't'      : 'Terminal'
+    \}
+
+set statusline=
+set statusline+=%k
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}\  " The current mode
+set statusline+=%1*\ %<%F%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
+set statusline+=%3*│                                     " Separator
+set statusline+=%2*\ %Y\                                 " FileType
+set statusline+=%3*│                                     " Separator
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
+set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
+set statusline+=%=                                       " Right Side
+set statusline+=%2*\ col:\ %02v\                         " Colomn number
+set statusline+=%3*│                                     " Separator
+set statusline+=%1*\ ln:\ %02l/%L\ (%3p%%)\              " Line number / total lines, percentage of document
+set statusline+=%0*\ %n\                                 " Buffer number
+
+"set statusline=%<%h%m%r%h%w%y\ ft:%{&ft}\ ff:%{&ff}\%=\ col:%04v\ ln:%04l\/%04L\ h:%03.3B\ a:%03.3b\ %03P
+
+hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
+hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
+hi User3 ctermfg=236 ctermbg=236 guibg=#303030 guifg=#303030
+hi User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e
