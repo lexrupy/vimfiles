@@ -92,7 +92,9 @@ augroup quickfix
 augroup END
 
 
-autocmd FileType qf nnoremap <buffer><silent> q :cclose<CR>
+autocmd FileType qf nnoremap <buffer><silent>q :cclose<CR>
+autocmd FileType qf nnoremap <buffer><silent>j :cnext<CR>:cclose<cr>:copen<cr>
+autocmd FileType qf nnoremap <buffer><silent>k :cprev<CR>>:cclose<cr>:copen<cr>
 " autocmd FileType qf nnoremap <buffer> q :lclose<CR>
 
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
@@ -114,6 +116,8 @@ nnoremap <leader>e :Lex<CR>
 nnoremap <leader>ff :find 
 nnoremap <leader>fw :Grep 
 nnoremap <leader>c :bd<cr>
+nnoremap <leader>b :b 
+nnoremap <leader>gg :silent call system('lazygit') <cr>:redr!<cr>
 
 " go to definition
 nnoremap gd g<c-]>
@@ -126,7 +130,6 @@ nnoremap ç :
 nnoremap Ç :
 vnoremap ç :
 vnoremap Ç :
-
 
 " Shortcuts for split navigation
 map <C-h> <C-w>h
@@ -148,12 +151,14 @@ inoremap <C-Down> <Esc>:m .+1<CR>==gi
 inoremap <C-Up> <Esc>:m .-2<CR>==gi
 vnoremap <C-Down> :m '>+1<CR>gv=gv
 vnoremap <C-Up> :m '<-2<CR>gv=gv
+
+" Cycle buffes pressing TAB
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 
 "map <silent> <C-l> :nohlsearch<CR>
 " map <silent> <Esc> :let @/=""<CR>
-noremap <CR> :let @/="" <CR> <CR>
+noremap <silent><CR> :let @/="" <CR> <CR>
 
 " Custom Functions
 "
