@@ -173,9 +173,9 @@ nnoremap <silent><Tab> :bn<CR>
 nnoremap <silent><S-Tab> :bp<CR>
 
 " map <silent> <C-l> :nohlsearch<CR>
-nnoremap <silent><Esc> :let @/=""<CR><esc>
+" nnoremap <silent><Esc> :let @/=""<CR><esc>
 " map <silent><esc> :noh<cr>
-" noremap <silent><CR> :let @/="" <CR> <CR>
+noremap <silent><CR> :let @/="" <CR> <CR>
 
 " Prevent loosing visual selection when indenting
 vnoremap > >gv
