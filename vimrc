@@ -153,6 +153,9 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Display Current buffer file info
+nnoremap <c-g> 1<c-g>
+
 "nmap <Down> gj
 "nmap <Up> gk
 "set fo=1
@@ -183,6 +186,22 @@ vnoremap < <gv
 " Also indent with tab and shift-tab
 vnoremap <tab> >gv
 vnoremap <s-tab> <gv
+
+
+" Momentary normal mode
+inoremap <c-o> <c-\><c-o>
+
+
+" Paste Tricks
+nnoremap ,p "0p
+nnoremap ,P "0P
+vnoremap ,p "0p
+vnoremap ,P "0P
+
+" let curor on center of screen shen moving half pages
+nnoremap <c-u> <c-u>zz
+nnoremap <c-d> <c-d>zz
+
 " Custom Functions
 "
 " Preserve history and cursor position while executing the given command
