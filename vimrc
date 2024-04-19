@@ -8,7 +8,7 @@ set nocompatible     " Forget about old vi compatibility
 set noshowmode       " Not display mode on command linke since we display mode in statusbar
 set number           " Display line number
 set relativenumber   " Make linenumbers relative to cursor line
-set path+=**         " Let FIND and other stuff locate files recursively
+set path=$PWD/**         " Let FIND and other stuff locate files recursively
 set tabstop=4        " Show existing tab with 4 spaces width
 set softtabstop=4    " Show existing tab with 4 spaces width
 set shiftwidth=4     " When indenting with '>', use 4 spaces width
@@ -36,7 +36,7 @@ set backspace=eol,start,indent
 set clipboard=unnamedplus " Clippboard Compartilhada
 "set paste
 set wildmenu
-set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc
+set wildignore=*.o,*.obj,*.bak,*.exe,*.dll,*.com,*.class,*.au,*.wav,*.ps,*.avi,*.mwv,*.flv,*.djvu,*.pdf,*.chm,*.dvi,*.svn/,*~,*.pyc,**/.git/**,**/__pycache__/**,**/.venv/**,**/node_modules/**,**/dist/**,**/build/**,*.o,*.pyc,*.swp,**/undodir/**
 set visualbell t_vb=
 set sm
 set matchtime=5
@@ -61,17 +61,9 @@ set undofile
 set grepprg=rg\ --vimgrep\ --hidden
 "set grepprg=git\ grep\ -n\ --column
 
-
-if has('wildoptions')
-    " A opção 'wildoptions' está disponível
-    if has('patch-8.2.0000') || has('nvim-0.5')
-        " Vim versão 8.2 ou superior ou Neovim versão 0.5 ou superior
-        set wildoptions=pum
-    endif
+if v:version >= 900
+    set wildoptions=pum
 endif
-" if v:version >= 900
-"     set wildoptions=pum
-" endif
 
 
 
@@ -102,9 +94,9 @@ cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'G
 "cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
 
 augroup quickfix
-	autocmd!
-	autocmd QuickFixCmdPost cgetexpr cwindow
-"	autocmd QuickFixCmdPost lgetexpr lwindow
+    autocmd!
+    autocmd QuickFixCmdPost cgetexpr cwindow
+"    autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 
 
@@ -226,10 +218,19 @@ function! StripBlankLines()
 endfunction
 
 
-function TurnOffCaps()  
+function TurnOffCaps()
     let capsState = matchstr(system('xset -q'), '00: Caps Lock:\s\+\zs\(on\|off\)\ze')
     if capsState == 'on'
         silent! execute ':!xdotool key Caps_Lock'
+    endif
+endfunction
+
+
+function! ToggleComment(comment_char)
+    if getline(".") =~ "^" . a:comment_char
+        execute ".s/^" . a:comment_char . "//g"
+    else
+        execute ".s/^/" . a:comment_char . "/g"
     endif
 endfunction
 
@@ -249,6 +250,12 @@ if has("autocmd")
     autocmd FileType help nnoremap <buffer><silent><esc> :bd<cr>
 
     autocmd FileType netrw autocmd BufLeave <buffer> if &filetype == 'netrw' | :bd | endif
+
+    " Comments
+    autocmd FileType vim nnoremap <buffer> gc :call ToggleComment('"')<CR>
+    autocmd FileType php,sh,zsh,bash,markdown nnoremap <buffer> gc :call ToggleComment("#")<CR>
+    autocmd FileType vim vnoremap <buffer> gc :call ToggleComment('"')<CR>gv
+    autocmd FileType php,sh,zsh,bash,markdown vnoremap <buffer> gc :call ToggleComment("#")<CR>gv
 
     " autocmd FileType qf nnoremap <buffer> q :lclose<CR>
     autocmd InsertLeave * call TurnOffCaps()
