@@ -58,7 +58,7 @@ set background=dark
 set undodir=~/.vim/undodir
 set undofile
 "set guicursor+=a:blink0
-set grepprg=rg\ --vimgrep\ --hidden
+set grepprg=rg\ --vimgrep
 "set grepprg=git\ grep\ -n\ --column
 
 if v:version >= 900
@@ -99,6 +99,8 @@ augroup quickfix
 "    autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 
+command! ClearQuickfixList cexpr []
+
 
 
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
@@ -119,6 +121,7 @@ let mapleader = ' '
 nnoremap <silent><leader>e :Lex<CR>
 nnoremap <leader>ff :find 
 nnoremap <leader>fw :Grep 
+nnoremap <silent><leader>qc :ClearQuickfixList<cr>
 nnoremap <silent><leader>c :bd<cr>
 nnoremap <leader>b :b 
 nnoremap <leader>gg :silent call system('lazygit') <cr>:redr!<cr>
