@@ -126,6 +126,9 @@ nnoremap <silent><leader>c :bd<cr>
 nnoremap <leader>b :b 
 nnoremap <leader>gg :silent call system('lazygit') <cr>:redr!<cr>
 
+nnoremap "" :registers<cr>
+
+
 " go to definition
 nnoremap gd g<c-]>
 
