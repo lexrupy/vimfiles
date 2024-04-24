@@ -126,8 +126,8 @@ nnoremap <silent><leader>c :bd<cr>
 nnoremap <leader>b :b 
 nnoremap <leader>gg :silent call system('lazygit') <cr>:redr!<cr>
 
-nnoremap "" :registers<cr>
-
+" List contents of all registers (that typically contain pasteable text).
+nnoremap <silent> "" :registers "0123456789abcdefghijklmnopqrstuvwxyz*+.<CR>
 
 " go to definition
 nnoremap gd g<c-]>
