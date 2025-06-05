@@ -325,9 +325,21 @@ hi User3 ctermfg=236 ctermbg=236 guibg=#303030 guifg=#303030
 hi User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e
 
 
+" GUI Options
+
 if has("gui")
-   set guifont=Agave\ Nerd\ Font\ 16
-   set guioptions -=T
-   set guioptions -=m
-   set guioptions -=r
+    set gfn=Agave\ Nerd\ Font\ 16
+
+    function! ToggleGUICruft()
+    if &guioptions=='aegirLt'
+        exec('set guioptions=aegirLtTm')
+    else
+        exec('set guioptions=aegirLt')
+    endif
+    endfunction
+
+    map <F11> <Esc>:call ToggleGUICruft()<cr>
+
+    " by default, hide gui menus
+    set guioptions=aegirLt
 endif
